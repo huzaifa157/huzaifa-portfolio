@@ -13,7 +13,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://huzaifa157.dev"),
+  metadataBase: new URL("https://huzaifa-portfolio-blush.vercel.app"),
   title: "Muhammad Huzaifa | Software Engineer Portfolio",
   description:
     "Professional software engineering portfolio of Muhammad Huzaifa featuring MERN projects, BSCS education, and GitHub repositories.",

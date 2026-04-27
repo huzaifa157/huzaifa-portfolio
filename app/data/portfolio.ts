@@ -194,5 +194,5 @@ export const caseStudies: ProjectCaseStudy[] = [
 export const highlights = [
   { label: "GitHub Repositories", value: "25+" },
   { label: "Featured Case Studies", value: "3" },
-  { label: "Academic Track", value: "BSCS 6th Semester" },
+  { label: "Academic Track", value: "Bachelor of Science in Computer Science" },
 ];

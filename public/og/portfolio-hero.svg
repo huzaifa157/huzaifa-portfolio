@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Muhammad Huzaifa portfolio open graph image">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b162b"/>
+      <stop offset="100%" stop-color="#162c4e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="70" y="70" width="1060" height="490" rx="30" fill="#101c33" stroke="#2f4f84" stroke-width="4"/>
+  <text x="120" y="190" fill="#8ce8cf" font-size="34" font-family="Arial, sans-serif">Software Engineer Portfolio</text>
+  <text x="120" y="300" fill="#f3f7ff" font-size="86" font-weight="700" font-family="Arial, sans-serif">Muhammad Huzaifa</text>
+  <text x="120" y="378" fill="#b9cdef" font-size="32" font-family="Arial, sans-serif">MERN Stack • DSA in Java • BSCS (UBIT '27)</text>
+  <text x="120" y="450" fill="#95f1d8" font-size="28" font-family="Arial, sans-serif">github.com/huzaifa157</text>
+</svg>

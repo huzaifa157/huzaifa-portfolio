@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Wanderlust thumbnail">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#142645"/>
+      <stop offset="100%" stop-color="#1f3f66"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="70" y="90" width="1060" height="450" rx="26" fill="#0f1b30" stroke="#40679f" stroke-width="4"/>
+  <text x="120" y="210" fill="#93edd6" font-size="34" font-family="Arial, sans-serif">Travel Listing Platform</text>
+  <text x="120" y="308" fill="#f1f6ff" font-size="86" font-weight="700" font-family="Arial, sans-serif">Wanderlust</text>
+  <text x="120" y="378" fill="#b7ccef" font-size="30" font-family="Arial, sans-serif">Node.js • Express • MongoDB • Mapbox</text>
+  <path d="M900 410 C960 330 1030 330 1090 410" stroke="#6fd4bc" stroke-width="8" fill="none"/>
+  <circle cx="995" cy="300" r="24" fill="#6fd4bc"/>
+</svg>

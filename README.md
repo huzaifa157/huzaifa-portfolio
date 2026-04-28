@@ -41,13 +41,13 @@ This repository hosts the personal portfolio site for Muhammad Huzaifa. It inclu
 
 - A dark-mode, recruiter-focused homepage with hero, highlights, tech stack, and contact.
 - Case studies for featured projects under `app/projects/[slug]` (AI Studio, Wanderlust, IntelliTest).
-- A downloadable resume in the `public` folder (file name present in this repo: `My Resume.pdf`).
+- A downloadable resume in the `public` folder (file name present in this repo: `resume.pdf`).
 - Open Graph / Twitter metadata configured in `app/layout.tsx` (update `metadataBase` when you change domain).
 
 If you fork or deploy this project, update the following before sharing:
 
 - `app/layout.tsx` → set `metadataBase` to your production domain (used for OG/Twitter images).
-- `public` → replace `My Resume.pdf` with your resume PDF and use a clean filename like `resume.pdf` if you prefer.
+- `public` → replace `resume.pdf` with your resume PDF and keep the clean filename `resume.pdf`.
 - `app/data/portfolio.ts` → edit `profile`, `caseStudies`, and `skillsByCategory` to reflect your personal details and project content.
 
 ## Running locally
@@ -79,7 +79,6 @@ Push to a Git repository (GitHub) and connect the repo to Vercel — Vercel will
 
 If you want, I can also:
 
-- Rename `My Resume.pdf` to `resume.pdf` and update the site link.
 - Add PNG OG images per project for richer social previews.
 - Wire live GitHub metrics to a small API route that caches results server-side.
 

@@ -101,7 +101,7 @@ export default async function Home() {
                 >
                   LinkedIn profile
                 </a>
-                <a href="/My%20Resume.pdf" className="btn-secondary" download>
+                <a href="/resume.pdf" className="btn-secondary" download>
                   Download resume
                 </a>
               </div>

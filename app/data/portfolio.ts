@@ -31,7 +31,7 @@ export const profile = {
   educationShort: "BSCS, Expected 2027",
   location: "Karachi, Pakistan",
   heroSummary:
-    "Software Engineer focused on building full-stack web and mobile applications end-to-end — designing REST APIs, implementing authentication and role-based authorization, developing responsive user interfaces, and deploying on modern cloud platforms.",
+    "I design REST APIs, implement authentication and role-based authorization, and deploy on modern cloud platforms — end-to-end, not just the UI.",
   education: [
     "Bachelor of Science in Computer Science (BSCS), Expected 2027 - UBIT, University of Karachi",
     "Intermediate in Computer Science - Adamjee Govt. Science College (2023)",
@@ -40,7 +40,7 @@ export const profile = {
 
 export const experience: ExperienceEntry[] = [
   {
-    role: "Software Engineer Intern",
+    role: "Software Engineer",
     company: "BranDive Media Solutions",
     period: "Jul 2026 - Current",
     current: true,

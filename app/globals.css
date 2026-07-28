@@ -1401,6 +1401,35 @@ button:focus-visible {
     padding: 1.3rem;
   }
 
+  .hero h1 {
+    max-width: none;
+    font-size: clamp(1.7rem, 8vw, 2.4rem);
+  }
+
+  .hero-copy {
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .hero-stats {
+    gap: 0.5rem 1rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-primary,
+  .hero-actions .btn-secondary {
+    width: 100%;
+  }
+
+  .profile-card {
+    max-width: 16rem;
+    margin: 0 auto;
+  }
+
   .about-grid {
     grid-template-columns: 1fr;
   }

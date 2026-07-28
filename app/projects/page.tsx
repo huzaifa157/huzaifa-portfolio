@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import SiteFooter from "../components/SiteFooter";
+import SiteNav from "../components/SiteNav";
 import { caseStudies } from "../data/portfolio";
 
 export const metadata = {
@@ -7,16 +9,13 @@ export const metadata = {
   description: "Case studies of full-stack projects by Muhammad Huzaifa.",
 };
 
+const navLinks = [{ href: "/", label: "Home" }];
+
 export default function ProjectsPage() {
   return (
-    <main className="portfolio-page projects-page">
+    <main className="portfolio-page projects-page" id="main-content">
       <div className="portfolio-shell">
-        <header className="topbar">
-          <p className="brand">Projects</p>
-          <nav aria-label="Projects navigation" className="topbar-links">
-            <Link href="/">Home</Link>
-          </nav>
-        </header>
+        <SiteNav brand="Projects" links={navLinks} />
 
         <section className="work">
           <div className="section-head">
@@ -58,6 +57,8 @@ export default function ProjectsPage() {
             ))}
           </div>
         </section>
+
+        <SiteFooter />
       </div>
     </main>
   );

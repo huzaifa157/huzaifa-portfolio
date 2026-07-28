@@ -12,69 +12,116 @@ export type ProjectCaseStudy = {
   architecture: string[];
 };
 
+export type ExperienceEntry = {
+  role: string;
+  company: string;
+  period: string;
+  stack: string[];
+  bullets: string[];
+  current?: boolean;
+};
+
 export const profile = {
   name: "Muhammad Huzaifa",
   email: "m.huzaifa157@gmail.com",
   phone: "0310-2003791",
   github: "https://github.com/huzaifa157",
   linkedin: "https://www.linkedin.com/in/syedhuzaifa-codes/",
-  headline: "Software Engineer | MERN Stack Developer | Bachelor of Computer Science (BSCS)",
-  location: "Pakistan",
+  headline: "Software Engineer",
+  educationShort: "BSCS, Expected 2027",
+  location: "Karachi, Pakistan",
   heroSummary:
-    "Full-stack engineer focused on robust API systems, scalable MERN architecture, and production-grade user experiences.",
+    "Software Engineer focused on building full-stack web and mobile applications end-to-end — designing REST APIs, implementing authentication and role-based authorization, developing responsive user interfaces, and deploying on modern cloud platforms.",
   education: [
-    "Bachelor of Computer Science (BSCS), 6th Semester - UBIT, University of Karachi",
-    "Intermediate in Computer Science - Adamjee Govt. Science College (2021 - 2023)",
+    "Bachelor of Science in Computer Science (BSCS), Expected 2027 - UBIT, University of Karachi",
+    "Intermediate in Computer Science - Adamjee Govt. Science College (2023)",
   ],
 };
 
+export const experience: ExperienceEntry[] = [
+  {
+    role: "Software Engineer Intern",
+    company: "BranDive Media Solutions",
+    period: "Jul 2026 - Current",
+    current: true,
+    stack: ["React.js", "Next.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "JWT"],
+    bullets: [
+      "Built DentalFlow, a multi-branch clinic management portal for a live client, with role-based dashboards for patients, doctors, receptionists, and admins.",
+      "Designed the appointment booking flow — branch, treatment, doctor, and time-slot selection — and the schema linking patients, appointments, prescriptions, and invoices, with JWT enforcing role-based access.",
+      "Added an analytics dashboard for revenue, patient growth, and doctor/branch performance, and delivered ER diagram, system flow diagram, and README for client handoff.",
+    ],
+  },
+];
+
 export const skillsByCategory = {
-  programmingLanguages: ["Python", "Java", "JavaScript", "TypeScript"],
-  webDevelopment: [
-    "Tailwind CSS",
-    "Next.js",
+  languagesFrontend: [
+    "JavaScript",
+    "Java",
+    "TypeScript",
     "React.js",
+    "Next.js",
+    "React Native",
+    "Tailwind CSS",
+  ],
+  backend: [
     "Node.js",
     "Express.js",
-  ],
-  frameworksConcepts: [
-    "MVC Architecture",
-    "NextAuth",
     "REST APIs",
-    "OOP",
+    "JWT Authentication",
+    "Passport.js",
+    "MVC Architecture",
+    "Mongoose",
   ],
-  databases: ["MySQL", "MongoDB", "MongoDB Atlas"],
+  databases: ["MongoDB", "PostgreSQL", "MySQL", "Prisma", "Neon"],
   toolsPlatforms: [
     "Git",
     "GitHub",
-    "VS Code",
+    "Docker",
+    "Postman",
+    "Vercel",
     "Azure",
-    "Cloudinary",
     "ImageKit",
+    "Expo",
+    "VS Code",
   ],
 };
 
+export const skillCategoryLabels: Record<keyof typeof skillsByCategory, string> = {
+  languagesFrontend: "Languages & Frontend",
+  backend: "Backend",
+  databases: "Databases",
+  toolsPlatforms: "Tools & Platforms",
+};
+
 export const techStack = [
-  "Python",
-  "Java",
   "JavaScript",
+  "Java",
   "TypeScript",
   "React.js",
   "Next.js",
+  "React Native",
+  "Tailwind CSS",
   "Node.js",
   "Express.js",
-  "Tailwind CSS",
-  "NextAuth",
   "REST APIs",
+  "JWT Authentication",
+  "Passport.js",
   "MVC Architecture",
-  "MySQL",
+  "Mongoose",
   "MongoDB",
-  "MongoDB Atlas",
-  "Cloudinary",
-  "ImageKit",
-  "Azure",
+  "PostgreSQL",
+  "MySQL",
+  "Prisma",
+  "Neon",
   "Git",
   "GitHub",
+  "Docker",
+  "Postman",
+  "Vercel",
+  "Azure",
+  "ImageKit",
+  "Expo",
+  "VS Code",
 ];
 
 export const caseStudies: ProjectCaseStudy[] = [
@@ -82,20 +129,14 @@ export const caseStudies: ProjectCaseStudy[] = [
     slug: "ai-studio",
     title: "AI Studio",
     summary:
-      "AI-powered video publishing platform with secure auth, media pipeline, and resilient multi-provider AI workflows.",
+      "AI-powered video publishing platform with a typed, role-based API layer and CDN-backed media delivery.",
     stack: [
       "Next.js",
-      "React",
       "TypeScript",
       "MongoDB Atlas",
       "NextAuth",
       "Tailwind CSS",
       "ImageKit",
-      "REST APIs",
-      "OpenAI",
-      "Groq",
-      "Gemini",
-      "OpenRouter",
       "Vercel",
     ],
     github: "https://github.com/huzaifa157/AI-Studio-Video-Publishing-Platform",
@@ -104,11 +145,11 @@ export const caseStudies: ProjectCaseStudy[] = [
     challenge:
       "Build a production-grade creator platform that can upload and stream media while generating AI metadata reliably across provider outages and rate limits.",
     implementation: [
+      "Built a typed API layer with role-based access control, request validation, and structured error handling on every route.",
+      "Integrated ImageKit for optimized media storage and delivery, with transformations served over CDN instead of raw uploads.",
       "Engineered end-to-end authentication, media upload, and creator content workflows with protected routes.",
-      "Designed REST API modules for video CRUD, AI metadata generation, and signed upload authorization.",
       "Implemented multi-provider AI fallback strategy with retries, timeout controls, and graceful degradation.",
-      "Integrated ImageKit CDN for optimized media delivery and production-safe access handling.",
-      "Hardened reliability with per-user rate limiting, defensive validation, and error boundaries.",
+      "Deployed on Vercel with protected API routes and environment-based configuration.",
     ],
     impact: [
       "Delivered a full-stack SaaS-style workflow from upload to public playback.",
@@ -126,7 +167,7 @@ export const caseStudies: ProjectCaseStudy[] = [
     slug: "wanderlust",
     title: "Wanderlust",
     summary:
-      "Full-stack travel listing platform featuring listings, reviews, authentication, image uploads, and map-based discovery.",
+      "Travel listing marketplace with owner-scoped authorization, image uploads, and map-based discovery.",
     stack: [
       "Node.js",
       "Express.js",
@@ -134,9 +175,7 @@ export const caseStudies: ProjectCaseStudy[] = [
       "EJS",
       "Passport.js",
       "Cloudinary",
-      "Multer",
       "Mapbox",
-      "GeoJSON",
       "Azure",
     ],
     github: "https://github.com/huzaifa157/Wanderlust",
@@ -144,11 +183,10 @@ export const caseStudies: ProjectCaseStudy[] = [
     challenge:
       "Create a robust listing platform with secure user flows, geospatial discovery, and image-heavy content while keeping architecture maintainable.",
     implementation: [
-      "Built MVC-based module structure for listings, reviews, users, and platform utilities.",
-      "Implemented session-based authentication and role-aware authorization using Passport.js.",
-      "Developed image upload and retrieval workflow with Multer + Cloudinary integration.",
-      "Added geospatial listing support through Mapbox and GeoJSON-driven mapping.",
-      "Implemented CRUD operations with validation pipelines for reliable data handling.",
+      "Built a listing marketplace with owner-scoped authorization enforced at the middleware level, so users can only edit or delete listings and reviews they created.",
+      "Integrated Cloudinary for image uploads and Mapbox geocoding with MongoDB GeoJSON for interactive location mapping.",
+      "Deployed to Azure with environment-based config, MongoDB-backed sessions, and server-side input validation on all forms.",
+      "Implemented session-based authentication using Passport.js across listings, reviews, and user modules.",
     ],
     impact: [
       "Shipped a full-featured booking-style experience with clear separation of concerns.",
@@ -160,6 +198,41 @@ export const caseStudies: ProjectCaseStudy[] = [
       "MongoDB Atlas persistence for users, listings, and reviews",
       "Cloudinary for media storage and delivery",
       "Mapbox and GeoJSON integration for map rendering",
+    ],
+  },
+  {
+    slug: "expense-tracker",
+    title: "Expense Tracker",
+    summary:
+      "Cross-platform mobile expense tracker built with React Native and Expo, backed by a JWT-secured REST API.",
+    stack: [
+      "React Native",
+      "Expo",
+      "Node.js",
+      "Express.js",
+      "MongoDB Atlas",
+      "JWT",
+      "NativeWind",
+    ],
+    github: "https://github.com/huzaifa157/Expense-Tracker",
+    thumbnail: "/projects/expense-tracker-thumb.svg",
+    challenge:
+      "Ship a single codebase that runs natively on iOS and Android, with authentication that persists across app restarts and a reliable expense CRUD API.",
+    implementation: [
+      "Built a single Expo codebase running on iOS and Android, with JWT auth persisted via AsyncStorage for login that survives app restarts.",
+      "Designed RESTful APIs for authentication and expense CRUD operations, with input validation and consistent HTTP status codes on error.",
+      "Implemented reusable UI components and navigation flows with React Navigation and NativeWind for a consistent cross-platform experience.",
+    ],
+    impact: [
+      "Delivered a production-style mobile app from a single JavaScript codebase, cutting platform-specific dev effort.",
+      "Ensured a persistent, secure session so users stay logged in between app launches.",
+      "Demonstrated mobile-first REST API design with predictable error handling for client consumption.",
+    ],
+    architecture: [
+      "Expo-managed React Native client with React Navigation",
+      "Express REST API for auth and expense CRUD",
+      "MongoDB Atlas persistence for users and expense records",
+      "JWT-based auth with AsyncStorage session persistence",
     ],
   },
   {
@@ -192,7 +265,6 @@ export const caseStudies: ProjectCaseStudy[] = [
 ];
 
 export const highlights = [
-  { label: "GitHub Repositories", value: "25+" },
-  { label: "Featured Case Studies", value: "3" },
-  { label: "Academic Track", value: "Bachelor of Science in Computer Science" },
+  { label: "Featured Case Studies", value: "4" },
+  { label: "Academic Track", value: "BSCS, Expected 2027" },
 ];

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Expense Tracker thumbnail">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#152340"/>
+      <stop offset="100%" stop-color="#1c3a4f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="70" y="90" width="1060" height="450" rx="26" fill="#0f1b30" stroke="#40679f" stroke-width="4"/>
+  <text x="120" y="210" fill="#93edd6" font-size="34" font-family="Arial, sans-serif">Cross-Platform Mobile App</text>
+  <text x="120" y="308" fill="#f1f6ff" font-size="72" font-weight="700" font-family="Arial, sans-serif">Expense Tracker</text>
+  <text x="120" y="378" fill="#b7ccef" font-size="30" font-family="Arial, sans-serif">React Native • Expo • Node.js • MongoDB</text>
+  <rect x="900" y="300" width="120" height="180" rx="18" fill="#0f1b30" stroke="#6fd4bc" stroke-width="6"/>
+  <rect x="922" y="330" width="76" height="10" rx="5" fill="#6fd4bc"/>
+  <rect x="922" y="356" width="56" height="10" rx="5" fill="#6fd4bc"/>
+  <rect x="922" y="382" width="66" height="10" rx="5" fill="#6fd4bc"/>
+  <circle cx="960" cy="440" r="14" fill="#6fd4bc"/>
+</svg>

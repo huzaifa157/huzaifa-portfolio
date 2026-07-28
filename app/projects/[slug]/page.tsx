@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import SiteFooter from "../../components/SiteFooter";
+import SiteNav from "../../components/SiteNav";
 import { caseStudies } from "../../data/portfolio";
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "All Projects" },
+];
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -46,15 +52,9 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
   }
 
   return (
-    <main className="portfolio-page case-study-page">
+    <main className="portfolio-page case-study-page" id="main-content">
       <div className="portfolio-shell">
-        <header className="topbar">
-          <p className="brand">{project.title}</p>
-          <nav aria-label="Case study navigation" className="topbar-links">
-            <Link href="/">Home</Link>
-            <Link href="/projects">All Projects</Link>
-          </nav>
-        </header>
+        <SiteNav brand={project.title} links={navLinks} />
 
         <article className="case-study">
           <section className="case-hero">
@@ -121,6 +121,8 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             </div>
           </section>
         </article>
+
+        <SiteFooter />
       </div>
     </main>
   );

@@ -5,12 +5,16 @@ export default function SiteFooter() {
 
   return (
     <footer className="site-footer">
-      <p>
-        © {year} {profile.name}. Built with Next.js &amp; Tailwind CSS.
-      </p>
-      <a href="#main-content" className="back-to-top">
-        Back to top ↑
-      </a>
+      <div className="shell footer-inner">
+        <p>
+          © {year} {profile.name}
+        </p>
+        <div className="footer-meta">
+          <span>Next.js 16 · React 19</span>
+          <span>{profile.timezone}</span>
+          <a href="#top">Back to top ↑</a>
+        </div>
+      </div>
     </footer>
   );
 }

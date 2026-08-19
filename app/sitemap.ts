@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
-import { caseStudies } from "./data/portfolio";
+import { caseStudies, profile } from "./data/portfolio";
 
-const baseUrl = "https://huzaifa-portfolio-blush.vercel.app";
+const baseUrl = profile.site;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const projectRoutes: MetadataRoute.Sitemap = caseStudies.map((project) => ({

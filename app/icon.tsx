@@ -1,8 +1,10 @@
 import { ImageResponse } from "next/og";
+import { logoDataUri } from "./components/Logo";
 
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
+/** Accent plate, dark mark — the highest-contrast pairing in a tab strip. */
 export default function Icon() {
   return new ImageResponse(
     (
@@ -13,14 +15,17 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#090f1a",
-          color: "#49d0a8",
-          fontSize: 18,
-          fontWeight: 700,
-          borderRadius: 6,
+          background: "#ff5c2b",
+          borderRadius: 7,
         }}
       >
-        MH
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={logoDataUri({ stem: "#0a0b0d", link: "#0a0b0d" })}
+          width={26}
+          height={26}
+          alt=""
+        />
       </div>
     ),
     { ...size }

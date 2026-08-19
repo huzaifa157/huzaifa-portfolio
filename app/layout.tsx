@@ -1,49 +1,78 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
+import ScrollProgress from "./components/ScrollProgress";
 import { profile } from "./data/portfolio";
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-display",
   subsets: ["latin"],
+  display: "swap",
 });
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const title = `${profile.name} — ${profile.headline}`;
+const description =
+  "Full-stack engineer building production web systems with Next.js, Node, PostgreSQL, and MongoDB. Case studies, architecture notes, experience, and résumé.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://huzaifa-portfolio-blush.vercel.app"),
-  title: "Muhammad Huzaifa | Software Engineer Portfolio",
-  description:
-    "Professional software engineering portfolio of Muhammad Huzaifa featuring full-stack web and mobile projects, internship experience, BSCS education, and GitHub repositories.",
+  metadataBase: new URL(profile.site),
+  title: {
+    default: title,
+    template: `%s — ${profile.name}`,
+  },
+  description,
+  applicationName: `${profile.name} Portfolio`,
+  authors: [{ name: profile.name, url: profile.site }],
+  creator: profile.name,
+  keywords: [
+    "full-stack engineer",
+    "software engineer portfolio",
+    "Next.js",
+    "Node.js",
+    "PostgreSQL",
+    "MongoDB",
+    "TypeScript",
+    "Muhammad Huzaifa",
+  ],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Muhammad Huzaifa | Software Engineer Portfolio",
-    description:
-      "Full-stack web and mobile engineer portfolio with case studies, architecture notes, experience, and resume highlights.",
+    title,
+    description,
     type: "website",
-    images: [
-      {
-        url: "/og/portfolio-hero.svg",
-        width: 1200,
-        height: 630,
-        alt: "Muhammad Huzaifa Portfolio",
-      },
-    ],
+    url: profile.site,
+    siteName: `${profile.name} — Portfolio`,
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muhammad Huzaifa | Software Engineer Portfolio",
-    description:
-      "Full-stack web and mobile engineer portfolio with case studies, experience, and resume highlights.",
-    images: ["/og/portfolio-hero.svg"],
+    title,
+    description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#090f1a",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#08090c" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f6f3" },
+  ],
 };
 
 const personJsonLd = {
@@ -51,17 +80,30 @@ const personJsonLd = {
   "@type": "Person",
   name: profile.name,
   jobTitle: profile.headline,
-  email: profile.email,
+  email: `mailto:${profile.email}`,
   telephone: profile.phone,
-  url: "https://huzaifa-portfolio-blush.vercel.app",
+  url: profile.site,
   sameAs: [profile.github, profile.linkedin],
+  knowsAbout: [
+    "Full-stack web development",
+    "REST API design",
+    "Role-based access control",
+    "PostgreSQL",
+    "MongoDB",
+    "Next.js",
+  ],
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "UBIT, University of Karachi",
+  },
   address: {
     "@type": "PostalAddress",
     addressLocality: "Karachi",
-    addressCountry: "Pakistan",
+    addressCountry: "PK",
   },
 };
 
+// Runs before paint so the first frame is already in the stored theme.
 const themeInitScript = `
   (function () {
     try {
@@ -80,7 +122,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${fraunces.variable} h-full antialiased`}
+      id="top"
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
@@ -94,6 +137,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
+        <ScrollProgress />
         {children}
       </body>
     </html>

@@ -1,7 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import CopyEmail from "./components/CopyEmail";
 import GitHubContributionGraph from "./components/GitHubContributionGraph";
+import SiteFooter from "./components/SiteFooter";
+import SiteHeader from "./components/SiteHeader";
 import {
+  IconArrowRight,
+  IconArrowUpRight,
+  IconDownload,
   IconGitHub,
   IconLinkedIn,
   IconMail,
@@ -10,37 +16,18 @@ import {
   IconUserPlus,
   IconUsers,
 } from "./components/icons";
-import SiteFooter from "./components/SiteFooter";
-import SiteNav from "./components/SiteNav";
+import { homeNavLinks } from "./data/navigation";
 import {
-  caseStudies,
+  archiveCaseStudies,
   experience,
-  highlights,
+  featuredCaseStudies,
+  heroMetrics,
+  principles,
   profile,
+  signatureStack,
   skillCategoryLabels,
   skillsByCategory,
-  techStack,
 } from "./data/portfolio";
-
-const GITHUB_USERNAME = "huzaifa157";
-
-const stackCategories = (
-  Object.keys(skillsByCategory) as Array<keyof typeof skillsByCategory>
-).map((key) => ({
-  key,
-  label: skillCategoryLabels[key],
-  items: skillsByCategory[key],
-}));
-
-const navLinks = [
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
-  { href: "#highlights", label: "Highlights" },
-  { href: "#education", label: "Education" },
-  { href: "#stack", label: "Stack" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
-];
 
 type GitHubUser = {
   public_repos: number;
@@ -55,12 +42,13 @@ type GitHubRepo = {
 async function getGitHubStats() {
   try {
     const [userRes, reposRes] = await Promise.all([
-      fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
+      fetch(`https://api.github.com/users/${profile.githubUsername}`, {
         next: { revalidate: 3600 },
       }),
-      fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`, {
-        next: { revalidate: 3600 },
-      }),
+      fetch(
+        `https://api.github.com/users/${profile.githubUsername}/repos?per_page=100`,
+        { next: { revalidate: 3600 } }
+      ),
     ]);
 
     if (!userRes.ok || !reposRes.ok) {
@@ -82,323 +70,527 @@ async function getGitHubStats() {
   }
 }
 
+const stackCategories = (
+  Object.keys(skillsByCategory) as Array<keyof typeof skillsByCategory>
+).map((key) => ({
+  key,
+  label: skillCategoryLabels[key],
+  items: skillsByCategory[key],
+}));
+
 export default async function Home() {
   const githubStats = await getGitHubStats();
 
   return (
-    <main className="portfolio-page" id="main-content">
-      <div className="bg-orb orb-left" aria-hidden="true" />
-      <div className="bg-orb orb-right" aria-hidden="true" />
+    <main className="page" id="main-content">
+      <SiteHeader
+        brand={profile.name}
+        brandSub={profile.headline}
+        links={homeNavLinks}
+        resumeHref={profile.resume}
+      />
 
-      <div className="portfolio-shell">
-        <SiteNav brand={profile.name} links={navLinks} />
+      {/* ------------------------------------------------------------ hero */}
+      <section className="hero">
+        <div className="shell hero-grid">
+          <div>
+            <p className="status" data-reveal>
+              <span className="live-dot" aria-hidden="true" />
+              {profile.availability}
+            </p>
 
-        <section className="hero reveal">
-          <div className="hero-grid">
-            <div className="hero-main">
-              <p className="status-pill">
-                <span className="live-dot" aria-hidden="true" />
-                Open to software engineering roles, 2026–2027
-              </p>
-              <h1>
-                Full-stack engineer building production-grade web &amp; mobile
-                products.
-              </h1>
-              <p className="hero-copy">{profile.heroSummary}</p>
-              <p className="hero-subcopy">
-                {profile.educationShort} · {profile.location}
-              </p>
+            <h1 data-reveal>
+              I build production web systems{" "}
+              <em>that hold up under real users.</em>
+            </h1>
 
-              <ul className="hero-stats" aria-label="Portfolio highlights">
-                <li>
-                  <strong>{caseStudies.length}</strong> shipped case studies
-                </li>
-                <li>
-                  <strong>{techStack.length}+</strong> technologies
-                </li>
-                <li>
-                  <strong>{Object.keys(skillsByCategory).length}</strong> skill areas
-                </li>
-              </ul>
+            <p className="hero-lede" data-reveal>
+              {profile.positioning}
+            </p>
 
-              <div className="hero-actions">
-                <a
-                  href={profile.github}
-                  className="btn-primary"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  GitHub profile
-                </a>
-                <a
-                  href={profile.linkedin}
-                  className="btn-secondary"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  LinkedIn profile
-                </a>
-                <a href="/resume.pdf" className="btn-secondary" download>
-                  Download resume
-                </a>
-              </div>
-
-              <div className="tag-row hero-tech-row" aria-label="Core technologies">
-                {techStack.slice(0, 6).map((tech) => (
-                  <span key={tech}>{tech}</span>
-                ))}
-              </div>
-            </div>
-
-            <aside className="profile-card" aria-label="Profile card">
-              <div className="profile-image-wrap">
-                <Image
-                  src="/huzaifa-profile.jpg"
-                  alt="Portrait of Muhammad Huzaifa"
-                  width={220}
-                  height={220}
-                  className="profile-image"
-                  priority
-                />
-                <span className="availability-dot" aria-hidden="true" />
-              </div>
-              <h2>{profile.name}</h2>
-              <p>Software Engineer • Full-Stack Web &amp; Mobile • BSCS</p>
-              <div className="profile-social-row">
-                <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub profile">
-                  <IconGitHub />
-                </a>
-                <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
-                  <IconLinkedIn />
-                </a>
-                <a href={`mailto:${profile.email}`} aria-label="Email Muhammad Huzaifa">
-                  <IconMail />
-                </a>
-              </div>
-            </aside>
-          </div>
-        </section>
-
-        <section id="highlights" className="github-activity reveal">
-          <div className="section-head github-activity-head">
-            <div>
-              <p>
-                <span className="live-dot" aria-hidden="true" />
-                Live from GitHub
-              </p>
-              <h2>GitHub activity, pulled fresh on every visit</h2>
-            </div>
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noreferrer"
-              className="repo-link"
-            >
-              View full profile →
-            </a>
-          </div>
-
-          {githubStats ? (
-            <>
-              <div className="highlights">
-                <article className="highlight-card">
-                  <IconRepo className="highlight-icon" />
-                  <p>Public Repos</p>
-                  <h3>{githubStats.repos}</h3>
-                </article>
-                <article className="highlight-card">
-                  <IconStar className="highlight-icon" />
-                  <p>Total Stars</p>
-                  <h3>{githubStats.stars}</h3>
-                </article>
-                <article className="highlight-card">
-                  <IconUsers className="highlight-icon" />
-                  <p>Followers</p>
-                  <h3>{githubStats.followers}</h3>
-                </article>
-                <article className="highlight-card">
-                  <IconUserPlus className="highlight-icon" />
-                  <p>Following</p>
-                  <h3>{githubStats.following}</h3>
-                </article>
-              </div>
-              <GitHubContributionGraph username={GITHUB_USERNAME} />
-              <p className="github-activity-caption">
-                Cached for up to 1 hour · Source: github.com/{GITHUB_USERNAME}
-              </p>
-            </>
-          ) : (
-            <div className="github-activity-fallback">
-              <p>Live GitHub stats are temporarily unavailable right now.</p>
-              <a href={profile.github} target="_blank" rel="noreferrer" className="btn-secondary">
-                View GitHub profile
+            <div className="hero-actions" data-reveal>
+              <a className="btn btn-primary" href={profile.resume} download>
+                <IconDownload />
+                Download résumé
+              </a>
+              <Link className="btn btn-ghost" href="#work">
+                See the work
+                <IconArrowRight />
+              </Link>
+              <a
+                className="btn btn-quiet"
+                href={`mailto:${profile.email}`}
+              >
+                <IconMail />
+                Get in touch
               </a>
             </div>
-          )}
 
-          <div className="highlights static-highlights">
-            {highlights.map((item) => (
-              <article key={item.label} className="highlight-card">
-                <p>{item.label}</p>
-                <h3>{item.value}</h3>
+            <div className="hero-foot" data-reveal>
+              <span>{profile.location}</span>
+              <span>{profile.timezone}</span>
+              <span>{profile.educationShort}</span>
+            </div>
+          </div>
+
+          <aside className="spec" aria-label="Profile summary" data-reveal>
+            <div className="spec-head">
+              <div className="spec-photo">
+                <Image
+                  src="/huzaifa-profile.jpg"
+                  alt={`Portrait of ${profile.name}`}
+                  width={120}
+                  height={120}
+                  priority
+                />
+              </div>
+              <div className="spec-id">
+                <h2>{profile.name}</h2>
+                <p>{profile.headline}</p>
+              </div>
+            </div>
+
+            <dl className="spec-rows">
+              <div className="spec-row">
+                <dt>Now</dt>
+                <dd>{profile.currentlyBuilding}</dd>
+              </div>
+              <div className="spec-row">
+                <dt>Focus</dt>
+                <dd>APIs, data modeling, auth &amp; access control, delivery</dd>
+              </div>
+              <div className="spec-row">
+                <dt>Based in</dt>
+                <dd>
+                  {profile.location} · {profile.timezone}
+                </dd>
+              </div>
+              <div className="spec-row">
+                <dt>Email</dt>
+                <dd>
+                  <a href={`mailto:${profile.email}`}>{profile.email}</a>
+                </dd>
+              </div>
+            </dl>
+
+            <div className="spec-links">
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub profile"
+                title="GitHub"
+              >
+                <IconGitHub />
+              </a>
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn profile"
+                title="LinkedIn"
+              >
+                <IconLinkedIn />
+              </a>
+              <a href={`mailto:${profile.email}`} aria-label="Send an email" title="Email">
+                <IconMail />
+              </a>
+              <a href={profile.resume} download aria-label="Download résumé" title="Résumé">
+                <IconDownload />
+              </a>
+            </div>
+          </aside>
+        </div>
+
+        <div className="shell">
+          <div className="metrics" data-reveal>
+            {heroMetrics.map((metric) => (
+              <div className="metric" key={metric.label}>
+                <p className="metric-value">{metric.value}</p>
+                <p className="metric-label">{metric.label}</p>
+              </div>
+            ))}
+          </div>
+          <p className="metrics-note">
+            Endpoint, model, and role-tier counts are summed from ServeFlow and
+            DentalFlow — the two role-based systems that expose them. Every
+            number matches the résumé.
+          </p>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------- ticker */}
+      <div className="ticker" aria-hidden="true">
+        <div className="ticker-track">
+          {[...signatureStack, ...signatureStack].map((tech, index) => (
+            <span key={`${tech}-${index}`}>{tech}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* ------------------------------------------------------------ work */}
+      <section className="section" id="work">
+        <div className="shell">
+          <div className="section-head" data-reveal>
+            <p className="mono section-index">01 — Selected work</p>
+            <h2 className="section-title">
+              Four systems, and the decisions behind them
+            </h2>
+            <p className="section-note">
+              Each case study covers the constraint, the implementation, and what
+              it changed.
+            </p>
+          </div>
+
+          <div className="work-list">
+            {featuredCaseStudies.map((project) => (
+              <article className="work-row" key={project.slug} data-reveal>
+                <p className="work-index">{project.index}</p>
+
+                <div>
+                  <p className="work-kicker">{project.kicker}</p>
+                  <Link className="work-title" href={`/projects/${project.slug}`}>
+                    {project.title}
+                    <IconArrowUpRight className="arrow" />
+                  </Link>
+
+                  <p className="work-thesis">{project.thesis}</p>
+
+                  <div className="work-metrics">
+                    {project.metrics.map((metric) => (
+                      <div className="work-metric" key={metric.label}>
+                        <b>{metric.value}</b>
+                        <span>{metric.label}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="chips">
+                    {project.stack.slice(0, 7).map((item) => (
+                      <span className="chip" key={item}>
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="work-links">
+                    <Link className="link-inline" href={`/projects/${project.slug}`}>
+                      Read case study
+                      <IconArrowRight />
+                    </Link>
+                    {project.live ? (
+                      <a
+                        className="link-inline"
+                        href={project.live}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Live demo
+                        <IconArrowUpRight />
+                      </a>
+                    ) : null}
+                    {project.github ? (
+                      <a
+                        className="link-inline"
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Source
+                        <IconArrowUpRight />
+                      </a>
+                    ) : (
+                      <span className="link-muted">
+                        {project.repoNote ?? "Private repository"}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="work-media">
+                  <Image
+                    src={project.thumbnail}
+                    alt={`${project.title} — ${project.kicker}`}
+                    width={1200}
+                    height={630}
+                  />
+                </div>
               </article>
             ))}
           </div>
-        </section>
 
-        <section id="about" className="about-grid reveal">
-          <article className="panel">
-            <h2>Professional summary</h2>
-            <p>
-              I build scalable web applications with a strong focus on clean
-              architecture, API reliability, and practical product outcomes. I
-              enjoy collaborating, shipping quickly, and learning deeply.
-            </p>
-          </article>
-          <article id="education" className="panel">
-            <h2>Education</h2>
-            <ul>
-              {profile.education.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </article>
-        </section>
-
-        <section id="experience" className="experience reveal">
-          <div className="section-head">
-            <p>Experience</p>
-            <h2>Where I&apos;ve applied these skills professionally</h2>
-          </div>
-          <div className="experience-list">
-            {experience.map((job) => (
-              <article
-                className={`panel experience-card${job.current ? " is-current" : ""}`}
-                key={`${job.company}-${job.role}`}
+          <div className="archive" data-reveal>
+            {archiveCaseStudies.map((project) => (
+              <Link
+                className="archive-item"
+                key={project.slug}
+                href={`/projects/${project.slug}`}
               >
-                <div className="experience-head">
-                  <div>
-                    <h3>{job.role}</h3>
-                    <p className="experience-company">{job.company}</p>
-                  </div>
-                  <div className="experience-meta">
-                    {job.current ? (
-                      <span className="badge-current">
-                        <span className="live-dot" aria-hidden="true" />
-                        Current
+                <h3>
+                  {project.title}
+                  <IconArrowUpRight />
+                </h3>
+                <p>{project.summary}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* -------------------------------------------------------- approach */}
+      <section className="section" id="approach">
+        <div className="shell">
+          <div className="section-head" data-reveal>
+            <p className="mono section-index">02 — How I build</p>
+            <h2 className="section-title">Rules I hold to, and where each one shipped</h2>
+            <p className="section-note">
+              Opinions are cheap; these are the ones that survived contact with a
+              production codebase.
+            </p>
+          </div>
+
+          <div className="principles">
+            {principles.map((principle) => (
+              <article className="principle" key={principle.title} data-reveal>
+                <h3>{principle.title}</h3>
+                <p>{principle.body}</p>
+                <p className="proof">{principle.proof}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------ experience */}
+      <section className="section" id="experience">
+        <div className="shell">
+          <div className="section-head" data-reveal>
+            <p className="mono section-index">03 — Experience</p>
+            <h2 className="section-title">Where the work has been shipped</h2>
+          </div>
+
+          <div className="timeline">
+            {experience.map((job) => (
+              <article className="tl-item" key={`${job.company}-${job.role}`} data-reveal>
+                <div className="tl-meta">
+                  <p className="tl-period">
+                    {job.current ? <span className="live-dot" aria-hidden="true" /> : null}
+                    {job.period}
+                  </p>
+                  <p className="tl-company">{job.company}</p>
+                  <p className="tl-context">{job.context}</p>
+                </div>
+
+                <div>
+                  <h3 className="tl-role">{job.role}</h3>
+                  <ul className="tl-bullets">
+                    {job.bullets.map((bullet) => (
+                      <li key={bullet}>{bullet}</li>
+                    ))}
+                  </ul>
+                  <div className="chips">
+                    {job.stack.map((item) => (
+                      <span className="chip" key={item}>
+                        {item}
                       </span>
-                    ) : null}
-                    <p className="experience-period">{job.period}</p>
+                    ))}
                   </div>
                 </div>
-                <div className="tag-row" aria-label={`${job.role} stack`}>
-                  {job.stack.map((item) => (
-                    <span key={item}>{item}</span>
-                  ))}
-                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ----------------------------------------------------------- stack */}
+      <section className="section" id="stack">
+        <div className="shell">
+          <div className="section-head" data-reveal>
+            <p className="mono section-index">04 — Stack &amp; signal</p>
+            <h2 className="section-title">Tools I reach for, and public activity</h2>
+          </div>
+
+          <div className="stack-grid" data-reveal>
+            {stackCategories.map((category) => (
+              <article className="stack-cat" key={category.key}>
+                <h3>
+                  {category.label}
+                  <span>{String(category.items.length).padStart(2, "0")}</span>
+                </h3>
                 <ul>
-                  {job.bullets.map((item) => (
+                  {category.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
               </article>
             ))}
           </div>
-        </section>
 
-        <section id="projects" className="work reveal">
-          <div className="section-head">
-            <p>Featured projects</p>
-            <h2>High-impact projects selected for portfolio review</h2>
-          </div>
-          <div className="work-grid">
-            {caseStudies.map((project) => (
-              <article className="project-card" key={project.slug}>
-                <Image
-                  src={project.thumbnail}
-                  alt={`${project.title} project thumbnail`}
-                  width={1200}
-                  height={630}
-                  className="project-thumb"
-                />
-                <h3>{project.title}</h3>
-                <p>{project.summary}</p>
-                <div className="tag-row" aria-label={`${project.title} stack`}>
-                  {project.stack.slice(0, 6).map((item) => (
-                    <span key={item}>{item}</span>
-                  ))}
+          <div className="gh-panel" data-reveal>
+            {githubStats ? (
+              <>
+                <div className="gh-stats">
+                  <div className="gh-stat">
+                    <p className="gh-stat-head">
+                      <IconRepo />
+                      Public repos
+                    </p>
+                    <b>{githubStats.repos}</b>
+                  </div>
+                  <div className="gh-stat">
+                    <p className="gh-stat-head">
+                      <IconStar />
+                      Stars earned
+                    </p>
+                    <b>{githubStats.stars}</b>
+                  </div>
+                  <div className="gh-stat">
+                    <p className="gh-stat-head">
+                      <IconUsers />
+                      Followers
+                    </p>
+                    <b>{githubStats.followers}</b>
+                  </div>
+                  <div className="gh-stat">
+                    <p className="gh-stat-head">
+                      <IconUserPlus />
+                      Following
+                    </p>
+                    <b>{githubStats.following}</b>
+                  </div>
                 </div>
-                <div className="project-links">
-                  <Link className="repo-link" href={`/projects/${project.slug}`}>
-                    Read case study
-                  </Link>
-                  {project.live ? (
-                    <a
-                      className="repo-link"
-                      href={project.live}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Live demo
-                    </a>
-                  ) : null}
+
+                <GitHubContributionGraph username={profile.githubUsername} />
+
+                <div className="gh-foot">
+                  <span>Live from the GitHub API · cached 1 hour</span>
                   <a
-                    className="repo-link"
-                    href={project.github}
+                    className="link-inline"
+                    href={profile.github}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Open repository
+                    @{profile.githubUsername}
+                    <IconArrowUpRight />
                   </a>
                 </div>
-              </article>
-            ))}
+              </>
+            ) : (
+              <div className="gh-fallback">
+                <p>GitHub stats are temporarily unavailable.</p>
+                <a
+                  className="btn btn-ghost"
+                  href={profile.github}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <IconGitHub />
+                  Open GitHub profile
+                </a>
+              </div>
+            )}
           </div>
-          <div className="projects-cta">
-            <Link href="/projects" className="btn-secondary">
-              View all case studies
-            </Link>
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <section id="stack" className="stack reveal">
-          <div className="section-head">
-            <p>Tech stack</p>
-            <h2>Technologies I use to build and ship products</h2>
+      {/* ----------------------------------------------------------- about */}
+      <section className="section" id="about">
+        <div className="shell">
+          <div className="section-head" data-reveal>
+            <p className="mono section-index">05 — Background</p>
+            <h2 className="section-title">Education, recognition, and the short version</h2>
           </div>
-          <div className="stack-groups">
-            {stackCategories.map((category) => (
-              <article className="stack-group" key={category.key}>
-                <div className="stack-group-head">
-                  <h3>{category.label}</h3>
-                  <span className="stack-count">{category.items.length}</span>
+
+          <div className="two-col">
+            <article className="panel" data-reveal>
+              <h3>Education</h3>
+              {profile.education.map((entry) => (
+                <div className="record" key={entry.degree}>
+                  <b>{entry.degree}</b>
+                  <span>{entry.institution}</span>
+                  <span className="year">{entry.period}</span>
                 </div>
-                <div className="stack-chips" aria-label={`${category.label} technologies`}>
-                  {category.items.map((item) => (
-                    <span key={item}>{item}</span>
-                  ))}
+              ))}
+
+              <h3 className="panel-heading-spaced">Recognition</h3>
+              {profile.achievements.map((item) => (
+                <div className="record" key={item.title}>
+                  <b>{item.title}</b>
+                  <span>{item.issuer}</span>
+                  <span className="year">{item.year}</span>
                 </div>
-              </article>
-            ))}
-          </div>
-        </section>
+              ))}
+            </article>
 
-        <section id="contact" className="contact reveal">
-          <p>Interested in jobs, collaboration, or freelance work.</p>
-          <div className="contact-links">
-            <a href={`mailto:${profile.email}`}>{profile.email}</a>
-            <a href={`tel:${profile.phone}`}>{profile.phone}</a>
-            <a href={profile.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn profile
-            </a>
-            <a href={profile.github} target="_blank" rel="noreferrer">
-              GitHub profile
-            </a>
+            <article className="panel" data-reveal>
+              <h3>In short</h3>
+              <p className="panel-prose">
+                {profile.heroSummary}
+              </p>
+              <p className="panel-prose">
+                I care most about the unglamorous parts — schema design that
+                survives a feature request, authorization that holds when the UI
+                is bypassed, and error responses a client can actually branch on.
+                I write documentation and hand-off material as part of shipping,
+                not after it.
+              </p>
+              <div className="chips">
+                <span className="chip chip-accent">Available for 2026–2027 roles</span>
+                <span className="chip">Open to relocation</span>
+                <span className="chip">Remote-friendly</span>
+              </div>
+            </article>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <SiteFooter />
-      </div>
+      {/* --------------------------------------------------------- contact */}
+      <section className="section" id="contact">
+        <div className="shell">
+          <div className="contact" data-reveal>
+            <p className="mono section-index">Contact</p>
+            <h2>Let&apos;s talk about what you&apos;re building.</h2>
+            <p>
+              I reply to every message. If you are hiring for a full-stack or
+              backend role, the résumé below has the short version and the case
+              studies have the long one.
+            </p>
+
+            <div className="contact-actions">
+              <a className="btn btn-primary" href={`mailto:${profile.email}`}>
+                <IconMail />
+                Email me
+              </a>
+              <CopyEmail email={profile.email} />
+              <a className="btn btn-ghost" href={profile.resume} download>
+                <IconDownload />
+                Résumé
+              </a>
+            </div>
+
+            <div className="contact-rows">
+              <a href={`mailto:${profile.email}`}>
+                <p className="k">Email</p>
+                <p className="v">{profile.email}</p>
+              </a>
+              <a href={`tel:${profile.phoneHref}`}>
+                <p className="k">Phone</p>
+                <p className="v">{profile.phone}</p>
+              </a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer">
+                <p className="k">LinkedIn</p>
+                <p className="v">/in/syedhuzaifa-codes</p>
+              </a>
+              <a href={profile.github} target="_blank" rel="noreferrer">
+                <p className="k">GitHub</p>
+                <p className="v">@{profile.githubUsername}</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <SiteFooter />
     </main>
   );
 }

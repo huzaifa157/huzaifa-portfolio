@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
+import { profile } from "./data/portfolio";
 
-const baseUrl = "https://huzaifa-portfolio-blush.vercel.app";
+const baseUrl = profile.site;
 
 export default function robots(): MetadataRoute.Robots {
   return {

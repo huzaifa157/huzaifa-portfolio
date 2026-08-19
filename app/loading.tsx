@@ -1,16 +1,16 @@
 export default function Loading() {
   return (
-    <main className="portfolio-page">
-      <div className="portfolio-shell">
-        <div className="topbar" aria-hidden="true">
-          <div className="skeleton-line" style={{ width: "8rem", height: "1.2rem" }} />
-        </div>
-        <div className="hero" aria-hidden="true">
-          <div className="skeleton-line" style={{ width: "60%", height: "2.4rem", marginTop: "0.5rem" }} />
-          <div className="skeleton-line" style={{ width: "80%", marginTop: "1rem" }} />
-          <div className="skeleton-line" style={{ width: "70%", marginTop: "0.6rem" }} />
-        </div>
+    <main className="page">
+      <div className="shell skeleton-stack" aria-hidden="true">
+        <div className="skeleton" style={{ width: "12rem", height: "0.9rem" }} />
+        <div className="skeleton" style={{ width: "80%", height: "3.2rem" }} />
+        <div className="skeleton" style={{ width: "60%", height: "3.2rem" }} />
+        <div className="skeleton" style={{ width: "45%", height: "1.1rem" }} />
+        <div className="skeleton" style={{ width: "38%", height: "1.1rem" }} />
       </div>
+      <p className="mono" style={{ textAlign: "center", color: "var(--fg-3)" }}>
+        Loading
+      </p>
     </main>
   );
 }

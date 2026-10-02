@@ -1,9 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import BentoProjectGrid from "./components/BentoProjectGrid";
 import CopyEmail from "./components/CopyEmail";
 import GitHubContributionGraph from "./components/GitHubContributionGraph";
+import HeroMetrics from "./components/HeroMetrics";
+import InteractiveTechStack from "./components/InteractiveTechStack";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
+import SystemArchitectureExplorer from "./components/SystemArchitectureExplorer";
 import {
   IconArrowRight,
   IconArrowUpRight,
@@ -19,8 +23,8 @@ import {
 import { homeNavLinks } from "./data/navigation";
 import {
   archiveCaseStudies,
+  caseStudies,
   experience,
-  featuredCaseStudies,
   heroMetrics,
   principles,
   profile,
@@ -70,14 +74,6 @@ async function getGitHubStats() {
   }
 }
 
-const stackCategories = (
-  Object.keys(skillsByCategory) as Array<keyof typeof skillsByCategory>
-).map((key) => ({
-  key,
-  label: skillCategoryLabels[key],
-  items: skillsByCategory[key],
-}));
-
 export default async function Home() {
   const githubStats = await getGitHubStats();
 
@@ -113,8 +109,8 @@ export default async function Home() {
                 <IconDownload />
                 Download résumé
               </a>
-              <Link className="btn btn-ghost" href="#work">
-                See the work
+              <Link className="btn btn-ghost" href="#experience">
+                See experience
                 <IconArrowRight />
               </Link>
               <a
@@ -203,19 +199,7 @@ export default async function Home() {
         </div>
 
         <div className="shell">
-          <div className="metrics" data-reveal>
-            {heroMetrics.map((metric) => (
-              <div className="metric" key={metric.label}>
-                <p className="metric-value">{metric.value}</p>
-                <p className="metric-label">{metric.label}</p>
-              </div>
-            ))}
-          </div>
-          <p className="metrics-note">
-            Endpoint, model, and role-tier counts are summed from ServeFlow and
-            DentalFlow — the two role-based systems that expose them. Every
-            number matches the résumé.
-          </p>
+          <HeroMetrics metrics={heroMetrics} />
         </div>
       </section>
 
@@ -228,144 +212,11 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* ------------------------------------------------------------ work */}
-      <section className="section" id="work">
-        <div className="shell">
-          <div className="section-head" data-reveal>
-            <p className="mono section-index">01 — Selected work</p>
-            <h2 className="section-title">
-              Four systems, and the decisions behind them
-            </h2>
-            <p className="section-note">
-              Each case study covers the constraint, the implementation, and what
-              it changed.
-            </p>
-          </div>
-
-          <div className="work-list">
-            {featuredCaseStudies.map((project) => (
-              <article className="work-row" key={project.slug} data-reveal>
-                <p className="work-index">{project.index}</p>
-
-                <div>
-                  <p className="work-kicker">{project.kicker}</p>
-                  <Link className="work-title" href={`/projects/${project.slug}`}>
-                    {project.title}
-                    <IconArrowUpRight className="arrow" />
-                  </Link>
-
-                  <p className="work-thesis">{project.thesis}</p>
-
-                  <div className="work-metrics">
-                    {project.metrics.map((metric) => (
-                      <div className="work-metric" key={metric.label}>
-                        <b>{metric.value}</b>
-                        <span>{metric.label}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="chips">
-                    {project.stack.slice(0, 7).map((item) => (
-                      <span className="chip" key={item}>
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="work-links">
-                    <Link className="link-inline" href={`/projects/${project.slug}`}>
-                      Read case study
-                      <IconArrowRight />
-                    </Link>
-                    {project.live ? (
-                      <a
-                        className="link-inline"
-                        href={project.live}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Live demo
-                        <IconArrowUpRight />
-                      </a>
-                    ) : null}
-                    {project.github ? (
-                      <a
-                        className="link-inline"
-                        href={project.github}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Source
-                        <IconArrowUpRight />
-                      </a>
-                    ) : (
-                      <span className="link-muted">
-                        {project.repoNote ?? "Private repository"}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="work-media">
-                  <Image
-                    src={project.thumbnail}
-                    alt={`${project.title} — ${project.kicker}`}
-                    width={1200}
-                    height={630}
-                  />
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div className="archive" data-reveal>
-            {archiveCaseStudies.map((project) => (
-              <Link
-                className="archive-item"
-                key={project.slug}
-                href={`/projects/${project.slug}`}
-              >
-                <h3>
-                  {project.title}
-                  <IconArrowUpRight />
-                </h3>
-                <p>{project.summary}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* -------------------------------------------------------- approach */}
-      <section className="section" id="approach">
-        <div className="shell">
-          <div className="section-head" data-reveal>
-            <p className="mono section-index">02 — How I build</p>
-            <h2 className="section-title">Rules I hold to, and where each one shipped</h2>
-            <p className="section-note">
-              Opinions are cheap; these are the ones that survived contact with a
-              production codebase.
-            </p>
-          </div>
-
-          <div className="principles">
-            {principles.map((principle) => (
-              <article className="principle" key={principle.title} data-reveal>
-                <h3>{principle.title}</h3>
-                <p>{principle.body}</p>
-                <p className="proof">{principle.proof}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------ experience */}
+      {/* -------------------------------------------------- 01: experience */}
       <section className="section" id="experience">
         <div className="shell">
           <div className="section-head" data-reveal>
-            <p className="mono section-index">03 — Experience</p>
+            <p className="mono section-index">01 — Experience</p>
             <h2 className="section-title">Where the work has been shipped</h2>
           </div>
 
@@ -402,29 +253,70 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ----------------------------------------------------------- stack */}
-      <section className="section" id="stack">
+      {/* --------------------------------------------- 02: work (bento grid) */}
+      <BentoProjectGrid projects={caseStudies} />
+
+      {/* --------------------------------- archive strip under bento grid */}
+      <div className="shell">
+        <div className="archive" data-reveal>
+          {archiveCaseStudies.map((project) => (
+            <Link
+              className="archive-item"
+              key={project.slug}
+              href={`/projects/${project.slug}`}
+            >
+              <h3>
+                {project.title}
+                <IconArrowUpRight />
+              </h3>
+              <p>{project.summary}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* ----------------------------- 03: interactive systems architecture */}
+      <SystemArchitectureExplorer />
+
+      {/* ------------------------------------------------ 04: how I build */}
+      <section className="section" id="approach">
         <div className="shell">
           <div className="section-head" data-reveal>
-            <p className="mono section-index">04 — Stack &amp; signal</p>
-            <h2 className="section-title">Tools I reach for, and public activity</h2>
+            <p className="mono section-index">04 — How I build</p>
+            <h2 className="section-title">Rules I hold to, and where each one shipped</h2>
+            <p className="section-note">
+              Opinions are cheap; these are the ones that survived contact with a
+              production codebase.
+            </p>
           </div>
 
-          <div className="stack-grid" data-reveal>
-            {stackCategories.map((category) => (
-              <article className="stack-cat" key={category.key}>
-                <h3>
-                  {category.label}
-                  <span>{String(category.items.length).padStart(2, "0")}</span>
-                </h3>
-                <ul>
-                  {category.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+          <div className="principles">
+            {principles.map((principle) => (
+              <article className="principle" key={principle.title} data-reveal>
+                <h3>{principle.title}</h3>
+                <p>{principle.body}</p>
+                <p className="proof">{principle.proof}</p>
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------ 05: stack & signal */}
+      <section className="section" id="stack">
+        <div className="shell">
+          <div className="section-head" data-reveal>
+            <p className="mono section-index">05 — Stack &amp; signal</p>
+            <h2 className="section-title">Tools I reach for, and public activity</h2>
+            <p className="section-note">
+              Select any technology to inspect where it is used across production case studies.
+            </p>
+          </div>
+
+          <InteractiveTechStack
+            skillsByCategory={skillsByCategory}
+            skillCategoryLabels={skillCategoryLabels}
+          />
 
           <div className="gh-panel" data-reveal>
             {githubStats ? (
@@ -493,11 +385,11 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ----------------------------------------------------------- about */}
+      {/* -------------------------------------------------- 06: background */}
       <section className="section" id="about">
         <div className="shell">
           <div className="section-head" data-reveal>
-            <p className="mono section-index">05 — Background</p>
+            <p className="mono section-index">06 — Background</p>
             <h2 className="section-title">Education, recognition, and the short version</h2>
           </div>
 

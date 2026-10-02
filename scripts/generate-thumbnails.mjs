@@ -38,19 +38,8 @@ const MONO = "'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace";
 
 const projects = [
   {
-    file: "serveflow-thumb.svg",
-    index: "01",
-    kicker: "Café management & ordering",
-    title: "ServeFlow",
-    caption: "15 tables · 18 endpoints · 3 roles",
-    grid: { cols: 6, rows: 5 },
-    // Highlighted cells trace an order moving through the state machine.
-    schematicLabel: "ORDER STATE PATH",
-    accents: [0, 7, 14, 21, 28, 29],
-  },
-  {
     file: "dentalflow-thumb.svg",
-    index: "02",
+    index: "01",
     kicker: "Multi-branch clinic portal",
     title: "DentalFlow",
     caption: "49 endpoints · 14 models · 4 roles",
@@ -58,6 +47,27 @@ const projects = [
     // Four lanes, one per role.
     schematicLabel: "ROLE ACCESS LANES",
     accents: [0, 7, 14, 21],
+  },
+  {
+    file: "healthify-thumb.svg",
+    index: "02",
+    kicker: "Healthy meal subscription (UAE)",
+    title: "Healthify",
+    caption: "React Native for Web · TypeScript · Vercel",
+    grid: { cols: 6, rows: 4 },
+    // Meal plans and macro tracking grid
+    schematicLabel: "MACRO & MEAL MATRIX",
+    accents: [1, 2, 7, 8, 14, 20],
+  },
+  {
+    file: "serveflow-thumb.svg",
+    index: "archive",
+    kicker: "Café management & ordering",
+    title: "ServeFlow",
+    caption: "15 tables · 18 endpoints · 3 roles",
+    grid: { cols: 6, rows: 5 },
+    schematicLabel: "ORDER STATE PATH",
+    accents: [0, 7, 14, 21, 28, 29],
   },
   {
     file: "wanderlust-thumb.svg",

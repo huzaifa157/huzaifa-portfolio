@@ -30,9 +30,10 @@ export type CommandIconKey =
   | "resume";
 
 export const homeNavLinks: NavLink[] = [
-  { href: "#work", label: "Work" },
-  { href: "#approach", label: "Approach" },
   { href: "#experience", label: "Experience" },
+  { href: "#work", label: "Work" },
+  { href: "#systems", label: "Systems" },
+  { href: "#approach", label: "Approach" },
   { href: "#stack", label: "Stack" },
   { href: "#about", label: "About" },
   { href: "#contact", label: "Contact" },
@@ -48,20 +49,27 @@ export const subpageNavLinks: NavLink[] = [
  * point at absolute URLs with a hash and work from a case study page too.
  */
 export const commandItems: CommandItem[] = [
-  { id: "work", label: "Selected work", group: "Navigate", href: "/#work", icon: "work" },
-  {
-    id: "approach",
-    label: "How I build",
-    group: "Navigate",
-    href: "/#approach",
-    icon: "principles",
-  },
   {
     id: "experience",
     label: "Experience",
     group: "Navigate",
     href: "/#experience",
     icon: "experience",
+  },
+  { id: "work", label: "Selected work", group: "Navigate", href: "/#work", icon: "work" },
+  {
+    id: "systems",
+    label: "System architecture & RBAC",
+    group: "Navigate",
+    href: "/#systems",
+    icon: "principles",
+  },
+  {
+    id: "approach",
+    label: "How I build",
+    group: "Navigate",
+    href: "/#approach",
+    icon: "principles",
   },
   { id: "stack", label: "Tech stack", group: "Navigate", href: "/#stack", icon: "stack" },
   { id: "about", label: "Education & certifications", group: "Navigate", href: "/#about", icon: "about" },

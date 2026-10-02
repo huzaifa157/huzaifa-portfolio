@@ -127,8 +127,14 @@ export default function SiteHeader({
             <span className="brand-mark">
               <Logo />
             </span>
-            {brand}
-            {brandSub ? <span className="brand-sub">{brandSub}</span> : null}
+            <span className="brand-text">
+              <span className="brand-name">{brand}</span>
+              {brandSub ? (
+                <span className="brand-sub" aria-hidden="true">
+                  {brandSub}
+                </span>
+              ) : null}
+            </span>
           </Link>
 
           <nav id="site-nav" aria-label="Main navigation" className="nav" data-open={menuOpen}>

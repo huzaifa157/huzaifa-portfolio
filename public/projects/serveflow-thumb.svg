@@ -19,7 +19,7 @@
   <rect x="0" y="0" width="1200" height="3" fill="#ff5c2b"/>
 
   <g font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="17" letter-spacing="2.4" fill="#69727f">
-    <text x="64" y="108">01</text>
+    <text x="64" y="108">archive</text>
     <text x="110" y="108" fill="#ff5c2b">/</text>
     <text x="136" y="108">CAFÉ MANAGEMENT &amp; ORDERING</text>
   </g>

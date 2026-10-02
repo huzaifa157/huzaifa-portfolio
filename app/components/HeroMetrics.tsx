@@ -21,7 +21,6 @@ export default function HeroMetrics({ metrics }: HeroMetricsProps) {
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion || hasAnimated) {
-      setHasAnimated(true);
       return;
     }
 

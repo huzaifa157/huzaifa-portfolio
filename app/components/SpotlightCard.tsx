@@ -22,7 +22,11 @@ export default function SpotlightCard({
     // and when reduced motion is not preferred.
     const hasHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setCanHover(hasHover && !reducedMotion);
+    const frame = requestAnimationFrame(() => {
+      setCanHover(hasHover && !reducedMotion);
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {

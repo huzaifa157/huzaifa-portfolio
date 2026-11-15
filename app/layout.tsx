@@ -1,31 +1,34 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import Script from "next/script";
 import ScrollProgress from "./components/ScrollProgress";
 import { profile } from "./data/portfolio";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-display",
+// Italic only: the serif appears solely as the emphasised phrase in a heading.
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument",
   subsets: ["latin"],
+  weight: "400",
+  style: "italic",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
 });
 
 const title = `${profile.name} — ${profile.headline}`;
 const description =
-  "Full-stack engineer building production web systems with Next.js, Node, PostgreSQL, and MongoDB. Case studies, architecture notes, experience, and résumé.";
+  "Full-stack software engineer at Super Auto, shipping production apps in insurance, healthcare, subscription commerce, and travel — React, Next.js, Node.js, ASP.NET Core, PostgreSQL, MongoDB, and LLM-powered features.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.site),
@@ -40,11 +43,15 @@ export const metadata: Metadata = {
   keywords: [
     "full-stack engineer",
     "software engineer portfolio",
+    "full-stack software engineer",
+    "React",
     "Next.js",
     "Node.js",
+    "ASP.NET Core",
     "PostgreSQL",
     "MongoDB",
     "TypeScript",
+    "LLM integration",
     "Muhammad Huzaifa",
   ],
   alternates: { canonical: "/" },
@@ -70,8 +77,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#08090c" },
-    { media: "(prefers-color-scheme: light)", color: "#f7f6f3" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a09" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f2ec" },
   ],
 };
 
@@ -83,6 +90,11 @@ const personJsonLd = {
   email: `mailto:${profile.email}`,
   telephone: profile.phone,
   url: profile.site,
+  worksFor: {
+    "@type": "Organization",
+    name: profile.currentRole.company,
+    url: profile.currentRole.url,
+  },
   sameAs: [profile.github, profile.linkedin],
   knowsAbout: [
     "Full-stack web development",
@@ -91,6 +103,8 @@ const personJsonLd = {
     "PostgreSQL",
     "MongoDB",
     "Next.js",
+    "ASP.NET Core",
+    "LLM API integration",
   ],
   alumniOf: {
     "@type": "CollegeOrUniversity",
@@ -123,7 +137,7 @@ export default function RootLayout({
     <html
       lang="en"
       id="top"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${geist.variable} ${instrumentSerif.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">

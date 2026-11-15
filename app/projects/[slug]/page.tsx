@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ProjectMedia } from "../../components/ProjectShowcase";
 import SiteFooter from "../../components/SiteFooter";
 import SiteHeader from "../../components/SiteHeader";
 import {
@@ -85,13 +85,11 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
               All case studies
             </Link>
 
-            <p className="mono section-index" style={{ marginTop: "1.6rem" }}>
-              {project.index} — {project.timeline}
+            <p className="eyebrow case-eyebrow">
+              <span>{project.index}</span> {project.kicker}
             </p>
             <h1>{project.title}</h1>
-            <p className="case-kicker">{project.kicker}</p>
-
-            <p className="case-thesis">{project.thesis}</p>
+            <blockquote className="case-thesis">{project.thesis}</blockquote>
 
             <dl className="case-facts">
               <div className="case-fact">
@@ -139,13 +137,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
             </dl>
 
             <div className="case-shot">
-              <Image
-                src={project.thumbnail}
-                alt={`${project.title} — ${project.kicker}`}
-                width={1200}
-                height={630}
-                priority
-              />
+              <ProjectMedia project={project} preload sizes="(max-width: 1240px) 100vw, 1200px" />
             </div>
           </div>
         </section>
@@ -202,7 +194,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
           <div className="case-body">
             <h2>Stack</h2>
-            <div className="chips" style={{ marginTop: 0 }}>
+            <div className="chips chips-flush">
               {project.stack.map((item) => (
                 <span className="chip" key={item}>
                   {item}

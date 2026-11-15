@@ -7,11 +7,16 @@ export default function SiteFooter() {
     <footer className="site-footer">
       <div className="shell footer-inner">
         <p>
-          © {year} {profile.name}
+          © {year} {profile.name} · Built with Next.js 16 and React 19
         </p>
         <div className="footer-meta">
-          <span>Next.js 16 · React 19</span>
-          <span>{profile.timezone}</span>
+          <a href={profile.github} target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+          <a href={profile.linkedin} target="_blank" rel="noreferrer">
+            LinkedIn
+          </a>
+          <a href={`mailto:${profile.email}`}>Email</a>
           <a href="#top">Back to top ↑</a>
         </div>
       </div>

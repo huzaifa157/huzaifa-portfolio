@@ -1,4 +1,4 @@
-import { profile } from "./portfolio";
+import { caseStudies, profile } from "./portfolio";
 
 export type NavLink = {
   href: string;
@@ -8,7 +8,7 @@ export type NavLink = {
 export type CommandItem = {
   id: string;
   label: string;
-  group: "Navigate" | "Open" | "Contact";
+  group: "Navigate" | "Projects" | "Open" | "Contact";
   href: string;
   icon: CommandIconKey;
   hint?: string;
@@ -59,21 +59,31 @@ export const commandItems: CommandItem[] = [
   { id: "work", label: "Selected work", group: "Navigate", href: "/#work", icon: "work" },
   {
     id: "systems",
-    label: "System architecture & RBAC",
+    label: "Systems — state machine & RBAC",
     group: "Navigate",
     href: "/#systems",
     icon: "principles",
   },
   {
     id: "approach",
-    label: "How I build",
+    label: "Approach — rules I hold to",
     group: "Navigate",
     href: "/#approach",
     icon: "principles",
   },
   { id: "stack", label: "Tech stack", group: "Navigate", href: "/#stack", icon: "stack" },
-  { id: "about", label: "Education & certifications", group: "Navigate", href: "/#about", icon: "about" },
+  { id: "about", label: "About, education & certification", group: "Navigate", href: "/#about", icon: "about" },
   { id: "projects", label: "All case studies", group: "Navigate", href: "/projects", icon: "work" },
+  // One entry per case study, so typing a project name jumps straight to it.
+  ...caseStudies.map(
+    (project): CommandItem => ({
+      id: `project-${project.slug}`,
+      label: `${project.title} — ${project.kicker}`,
+      group: "Projects",
+      href: `/projects/${project.slug}`,
+      icon: "work",
+    })
+  ),
   {
     id: "resume",
     label: "Download résumé (PDF)",

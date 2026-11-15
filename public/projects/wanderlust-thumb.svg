@@ -1,74 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Wanderlust — Travel marketplace">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Wanderlust — geojson discovery schematic">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0d1015"/>
-      <stop offset="1" stop-color="#08090c"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="0.12" cy="0" r="0.9">
-      <stop offset="0" stop-color="#ff5c2b" stop-opacity="0.16"/>
-      <stop offset="1" stop-color="#ff5c2b" stop-opacity="0"/>
+    <radialGradient id="glow" cx="0.85" cy="0" r="0.9">
+      <stop offset="0" stop-color="#c8f24b" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#c8f24b" stop-opacity="0"/>
     </radialGradient>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    <pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.1" fill="#ffffff" fill-opacity="0.06"/>
     </pattern>
   </defs>
 
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="#0d0d0b"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
-  <rect x="0" y="0" width="1200" height="3" fill="#ff5c2b"/>
 
-  <g font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="17" letter-spacing="2.4" fill="#69727f">
-    <text x="64" y="108">03</text>
-    <text x="110" y="108" fill="#ff5c2b">/</text>
-    <text x="136" y="108">TRAVEL MARKETPLACE</text>
-  </g>
+  <rect x="90" y="60" width="13" height="13" rx="3" fill="#c8f24b"/>
+  <text x="120" y="75" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="22" letter-spacing="1.6" fill="#b5b2a7" text-anchor="start">GEOJSON DISCOVERY</text>
 
-  <text x="64" y="240" font-family="Inter, 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="82" font-weight="600" letter-spacing="-3" fill="#eef1f6">Wanderlust</text>
+  <ellipse cx="330" cy="300" rx="250" ry="130" transform="rotate(-8 330 300)" fill="none" stroke="#45453c" stroke-opacity="0.75"/>
+  <ellipse cx="330" cy="300" rx="170" ry="82" transform="rotate(-8 330 300)" fill="none" stroke="#45453c" stroke-opacity="0.75"/>
+  <ellipse cx="330" cy="300" rx="90" ry="40" transform="rotate(-8 330 300)" fill="none" stroke="#45453c" stroke-opacity="0.75"/>
+  <ellipse cx="860" cy="340" rx="230" ry="120" transform="rotate(10 860 340)" fill="none" stroke="#45453c" stroke-opacity="0.75"/>
+  <ellipse cx="860" cy="340" rx="140" ry="68" transform="rotate(10 860 340)" fill="none" stroke="#45453c" stroke-opacity="0.75"/>
+  <ellipse cx="640" cy="180" rx="150" ry="54" transform="rotate(4 640 180)" fill="none" stroke="#45453c" stroke-opacity="0.75"/>
+  <path d="M150 440C330 380 470 470 640 400S930 250 1080 300" fill="none" stroke="#807d72" stroke-width="1.5" stroke-dasharray="3 9" stroke-linecap="round"/>
+  <circle cx="250" cy="250" r="9" fill="#1b1b18" stroke="#807d72" stroke-width="1.5"/>
+  <circle cx="250" cy="250" r="3" fill="#b5b2a7"/>
+  <circle cx="420" cy="340" r="9" fill="#1b1b18" stroke="#807d72" stroke-width="1.5"/>
+  <circle cx="420" cy="340" r="3" fill="#b5b2a7"/>
+  <circle cx="560" cy="205" r="9" fill="#1b1b18" stroke="#807d72" stroke-width="1.5"/>
+  <circle cx="560" cy="205" r="3" fill="#b5b2a7"/>
+  <circle cx="760" cy="410" r="9" fill="#1b1b18" stroke="#807d72" stroke-width="1.5"/>
+  <circle cx="760" cy="410" r="3" fill="#b5b2a7"/>
+  <circle cx="960" cy="290" r="9" fill="#1b1b18" stroke="#807d72" stroke-width="1.5"/>
+  <circle cx="960" cy="290" r="3" fill="#b5b2a7"/>
+  <circle cx="1010" cy="420" r="9" fill="#1b1b18" stroke="#807d72" stroke-width="1.5"/>
+  <circle cx="1010" cy="420" r="3" fill="#b5b2a7"/>
+  <circle cx="690" cy="300" r="46" fill="#c8f24b" fill-opacity="0.08" stroke="#c8f24b" stroke-opacity="0.3"/>
+  <circle cx="690" cy="300" r="24" fill="#c8f24b" fill-opacity="0.16"/>
+  <circle cx="690" cy="300" r="11" fill="#c8f24b"/>
+  <rect x="724" y="236" width="214" height="46" rx="12" fill="#141412" stroke="#c8f24b" stroke-opacity="0.6"/>
+  <text x="831" y="267" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="22" letter-spacing="0.4" fill="#c8f24b" text-anchor="middle">[ lng, lat ]</text>
 
-  <rect x="64" y="286" width="72" height="3" rx="1.5" fill="#ff5c2b"/>
-
-  <text x="64" y="344" font-family="Inter, 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="25" fill="#a2abbb">Bookings · GeoJSON · 5 hardening layers</text>
-
-  <g font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="15" letter-spacing="1.6" fill="#69727f">
-    <text x="64" y="556">MUHAMMAD HUZAIFA</text>
-    <text x="64" y="584" fill="#262d3a">CASE STUDY</text>
-  </g>
-
-  <rect x="660" y="96" width="476" height="438" rx="18" fill="#0a0d12" stroke="#1b202a"/>
-  <g>
-    <circle cx="686" cy="120" r="4.5" fill="#262d3a"/>
-    <circle cx="702" cy="120" r="4.5" fill="#262d3a"/>
-    <circle cx="718" cy="120" r="4.5" fill="#ff5c2b" fill-opacity="0.7"/>
-  </g>
-  <line x1="660" y1="142" x2="1136" y2="142" stroke="#1b202a"/>
-
-  <g>
-      <rect x="694.0" y="136.0" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="763.7" y="136.0" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="833.3" y="136.0" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="903.0" y="136.0" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="972.7" y="136.0" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="1042.3" y="136.0" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="694.0" y="218.5" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="763.7" y="218.5" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="833.3" y="218.5" width="59.7" height="72.5" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="903.0" y="218.5" width="59.7" height="72.5" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="972.7" y="218.5" width="59.7" height="72.5" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="1042.3" y="218.5" width="59.7" height="72.5" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="694.0" y="301.0" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="763.7" y="301.0" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="833.3" y="301.0" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="903.0" y="301.0" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="972.7" y="301.0" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="1042.3" y="301.0" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="694.0" y="383.5" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="763.7" y="383.5" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="833.3" y="383.5" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="903.0" y="383.5" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="972.7" y="383.5" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="1042.3" y="383.5" width="59.7" height="72.5" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-  </g>
-
-  <text x="694" y="502" font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="14" letter-spacing="1.8" fill="#69727f">BOOKED DATE RANGE</text>
+  <text x="90" y="580" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="21" letter-spacing="0.4" fill="#807d72" text-anchor="start">Listings · reviews · map search</text>
 </svg>

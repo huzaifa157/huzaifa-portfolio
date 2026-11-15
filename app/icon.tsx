@@ -15,13 +15,13 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#ff5c2b",
+          background: "#c8f24b",
           borderRadius: 7,
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={logoDataUri({ stem: "#0a0b0d", link: "#0a0b0d" })}
+          src={logoDataUri({ stem: "#10150a", link: "#10150a" })}
           width={26}
           height={26}
           alt=""

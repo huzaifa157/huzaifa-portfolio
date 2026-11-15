@@ -9,36 +9,41 @@ Tailwind CSS 4. Deployed on Vercel at
 The UI is a hand-built system in `app/globals.css` — no component library, no
 template. It is documented at the top of that file, but in short:
 
-- **Monochrome ink surfaces, one signal accent.** Colour marks exactly one thing
-  per screen region (active nav item, live dot, primary action, hovered work
-  row); everything else earns attention through type scale and whitespace.
+- **Warm ink surfaces, one signal accent.** Lime marks what is live, what is
+  selected, and the one primary action in a region; everything else earns
+  attention through type scale and whitespace.
 - **Tokens** are defined once per theme on `:root` / `:root[data-theme="light"]`
   and cascade in a fixed order: `--bg → --surface → --surface-2 → --surface-3`
-  for surfaces, `--fg → --fg-2 → --fg-3` for text.
-- **Type**: Space Grotesk for display, Inter for body, JetBrains Mono for labels,
-  indices, and metrics — all self-hosted through `next/font`.
+  for surfaces, `--fg → --fg-2 → --fg-3` for text. The accent is split into
+  `--accent` (ink: text and strokes) and `--accent-bg` / `--accent-fg` (fills),
+  because lime text is unreadable on paper — in the light theme the emphasised
+  phrase becomes a highlighter stroke behind dark text instead.
+- **Type**: Geist for everything you read, Instrument Serif italic for the one
+  emphasised phrase inside a display heading (any `<em>` in an `h1`/`h2`), and
+  Geist Mono for labels, indices, and numbers — all self-hosted through
+  `next/font`.
 - **The mark** is an H whose crossbar steps up as it crosses between the stems —
   a state transition drawn through a monogram. Its geometry lives once in
   `LOGO_GEOMETRY` (`app/components/Logo.tsx`) and is consumed by three
   renderers: the React component (coloured by CSS), `logoSvg()` for `next/og`,
-  and `scripts/generate-favicon.mjs`. In the header it stays monochrome until
-  hover, because the accent in that region belongs to the active nav item.
+  and `scripts/generate-favicon.mjs`.
 - **Theme** is set on `<html data-theme>` by an inline script before paint, so
   there is no flash and nothing for React to hydrate. The toggle is stateless;
   CSS picks which icon is visible.
-- **Motion** is opt-in per element via `data-reveal` and driven entirely by CSS
-  scroll-driven animations (`animation-timeline: view()`), guarded by `@supports`
-  and `prefers-reduced-motion`. Nothing observes or mutates the DOM, so the
-  reveal cannot race hydration, and browsers without scroll-driven animations
-  simply render the final state.
+- **Motion** is CSS-only, so it can never race hydration. `.rise` plays once on
+  load, staggered by `--i`, for the hero; `data-reveal` is scroll-driven
+  (`animation-timeline: view()`) for everything below it. Both sit behind
+  `prefers-reduced-motion`, and browsers without scroll-driven animations simply
+  render the final state.
 
 ## Structure
 
 ```
 app/
   layout.tsx              root metadata, fonts, JSON-LD, theme script
-  page.tsx                homepage: hero, metrics, work, principles,
-                          experience, stack + GitHub, background, contact
+  page.tsx                homepage: hero + "now building" card, metrics,
+                          experience, work, systems, approach, stack + GitHub,
+                          about, contact
   opengraph-image.tsx     generated PNG social card (1200x630)
   icon.tsx / apple-icon.tsx
   projects/page.tsx       case study index
@@ -47,13 +52,20 @@ app/
     SiteHeader.tsx        sticky header, scroll spy, mobile menu, ⌘K trigger
     CommandPalette.tsx    ⌘K / Ctrl-K palette with subsequence search
     ScrollProgress.tsx    reading progress rule (rAF, no React renders)
+    ProjectShowcase.tsx   featured project cards, the "more projects" list,
+                          and ProjectMedia (screenshot-in-browser or artwork)
+    SystemArchitectureExplorer.tsx  interactive state machine + RBAC tabs
+    InteractiveTechStack.tsx        skills list with a "used in" inspector
+    SpotlightCard.tsx     pointer-following glow, gated entirely in CSS
+    LocalTime.tsx         live clock in the profile's time zone
     Logo.tsx              the mark — one geometry, three renderers
     CopyEmail.tsx, ThemeToggle.tsx, SiteFooter.tsx, icons.tsx
   data/
     portfolio.ts          single source of truth for all site content
     navigation.ts         nav links and command palette entries
 scripts/
-  generate-thumbnails.mjs regenerates public/projects/*.svg
+  generate-thumbnails.mjs regenerates public/projects/*-thumb.svg
+  capture-screens.mjs     re-captures product screenshots from live demos
   generate-favicon.mjs    regenerates app/favicon.ico from the mark
   shots.mjs               screenshots for design review
 ```
@@ -62,22 +74,30 @@ scripts/
 
 Everything a recruiter reads lives in `app/data/portfolio.ts`:
 
-| Export             | Drives                                          |
-| ------------------ | ----------------------------------------------- |
-| `profile`          | hero, spec card, contact, footer, metadata      |
-| `heroMetrics`      | the four-number band under the hero             |
-| `principles`       | the "How I build" section                       |
-| `experience`       | the experience timeline                         |
-| `skillsByCategory` | the stack grid (labels in `skillCategoryLabels`)|
-| `caseStudies`      | work rows, `/projects`, and every case study page|
+| Export             | Drives                                              |
+| ------------------ | --------------------------------------------------- |
+| `profile`          | hero, about, contact, footer, metadata, JSON-LD     |
+| `nowBuilding`      | the "now building" card and its pipeline in the hero|
+| `heroMetrics`      | the four-number band under the hero                 |
+| `experience`       | the experience section                              |
+| `caseStudies`      | project cards, `/projects`, every case study page   |
+| `principles`       | the "Approach" section                              |
+| `skillsByCategory` | the stack list (labels in `skillCategoryLabels`)    |
+| `skillProof`       | the "used in" inspector beside the stack            |
 
-A case study with `featured: true` gets a full row on the homepage; the rest
-appear in the archive strip and on `/projects`. Set `github` to link a
-repository, or omit it and set `repoNote` to explain why there isn't one.
+A case study with `featured: true` gets a card on the homepage (the first one
+runs full width); the rest appear in the "more projects" list and on
+`/projects`. Set `github` to link a repository, or omit it and set `repoNote`
+to explain why there isn't one. Add a `screenshot` to show the real product in
+a browser frame instead of the generated artwork.
 
-The numbers in `heroMetrics` are deliberately the sums of figures that appear on
-the résumé — keep them in sync so the site and the PDF never disagree in an
-interview.
+Each experience bullet is split into `lead` and `rest`, mirroring the bolded
+first clause of the bullet on the résumé — the site renders `lead` in the
+stronger weight so a recruiter can skim the left edge.
+
+The résumé is the source of truth. Every number in `heroMetrics`, every date in
+`experience`, and every item in `skillsByCategory` appears on the PDF — keep
+them in sync so the site and the résumé never disagree in an interview.
 
 ## Résumé
 
@@ -85,16 +105,26 @@ interview.
 that file — the filename is referenced by `profile.resume`, the header CTA, the
 command palette, and a test that asserts the file exists.
 
-## Thumbnails
+## Project imagery
 
-Project thumbnails are generated, not drawn:
+Project artwork is generated, not drawn:
 
 ```bash
 node scripts/generate-thumbnails.mjs
 ```
 
-Each 1200x630 SVG uses a schematic whose grid is dimensioned from that project's
-real numbers. Edit the `projects` array in the script and re-run.
+Each 1200x630 SVG is a schematic of the idea its case study is about (role
+lanes, a schema, a fallback chain). Edit the `projects` array or a motif
+function in the script and re-run.
+
+Projects with a public demo can show the real thing instead:
+
+```bash
+node scripts/capture-screens.mjs
+```
+
+This saves a 2x screenshot into `public/projects`; reference it from the case
+study's `screenshot` field.
 
 ## Logo
 
@@ -123,7 +153,8 @@ Design review screenshots (server must be running):
 
 ```bash
 npm run build && npx next start -p 4310
-node scripts/shots.mjs http://localhost:4310 ./shot dark 1440 "#work,#contact"
+node scripts/shots.mjs http://localhost:4310 ./shot dark 1440          # one frame per viewport
+node scripts/shots.mjs http://localhost:4310 ./shot light 390 "#work"  # specific elements
 ```
 
 > Restart `next start` after every build — an already-running server keeps
@@ -133,7 +164,7 @@ node scripts/shots.mjs http://localhost:4310 ./shot dark 1440 "#work,#contact"
 
 - `profile.site` in `app/data/portfolio.ts` sets `metadataBase`, the canonical
   URL, JSON-LD, and the sitemap host. Change it if the domain changes.
-- GitHub stats on the homepage come from the public GitHub API, cached for one
-  hour, and the section degrades to a link if the API is unavailable.
+- The public repository count comes from the GitHub API, cached for one hour;
+  if the API is unavailable the count is simply omitted.
 - External project links are verified by hand — re-check them if a repository is
   renamed, since a 404 in front of a recruiter is worse than no link.

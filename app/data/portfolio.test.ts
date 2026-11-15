@@ -7,9 +7,11 @@ import {
   experience,
   featuredCaseStudies,
   heroMetrics,
+  nowBuilding,
   principles,
   profile,
   skillCategoryLabels,
+  skillProof,
   skillsByCategory,
   techStack,
 } from "./portfolio";
@@ -30,6 +32,16 @@ describe("profile", () => {
     expect(existsSync(path.join(publicDir, profile.resume))).toBe(true);
   });
 
+  it("names the current role the hero and social card lead with", () => {
+    expect(profile.currentRole.title).toBeTruthy();
+    expect(profile.currentRole.company).toBeTruthy();
+    expect(profile.currentRole.url).toMatch(/^https:\/\//);
+    // The hero says "at <company>", so it has to be the job marked current.
+    expect(experience.find((job) => job.current)?.company).toBe(
+      profile.currentRole.company
+    );
+  });
+
   it("keeps the tel: href dial-safe", () => {
     expect(profile.phoneHref).toMatch(/^\+\d+$/);
   });
@@ -39,7 +51,7 @@ describe("profile", () => {
     for (const entry of profile.education) {
       expect(entry.degree).toBeTruthy();
       expect(entry.institution).toBeTruthy();
-      expect(entry.period).toBeTruthy();
+      expect(entry.location).toBeTruthy();
     }
 
     for (const achievement of profile.achievements) {
@@ -107,6 +119,15 @@ describe("case studies", () => {
     }
   });
 
+  it("points every product screenshot at a file that exists", () => {
+    for (const project of caseStudies) {
+      if (!project.screenshot) continue;
+      expect(existsSync(path.join(publicDir, project.screenshot.src))).toBe(true);
+      expect(project.screenshot.width).toBeGreaterThan(0);
+      expect(project.screenshot.height).toBeGreaterThan(0);
+    }
+  });
+
   it("partitions cleanly into the featured list and the archive", () => {
     expect(featuredCaseStudies.length).toBeGreaterThan(0);
     expect(featuredCaseStudies.length + archiveCaseStudies.length).toBe(
@@ -127,7 +148,22 @@ describe("experience", () => {
       expect(job.context).toBeTruthy();
       expect(job.stack.length).toBeGreaterThan(0);
       expect(job.bullets.length).toBeGreaterThan(0);
+
+      for (const bullet of job.bullets) {
+        expect(bullet.lead).toBeTruthy();
+        expect(bullet.rest).toBeTruthy();
+      }
     }
+  });
+
+  it("marks exactly one role as current", () => {
+    expect(experience.filter((job) => job.current)).toHaveLength(1);
+  });
+
+  it("lists the stages of the work in progress", () => {
+    expect(nowBuilding.title).toBeTruthy();
+    expect(nowBuilding.stages.length).toBeGreaterThan(1);
+    expect(new Set(nowBuilding.stages).size).toBe(nowBuilding.stages.length);
   });
 });
 
@@ -143,6 +179,18 @@ describe("skills and metrics", () => {
   it("has a flattened tech stack with no duplicates", () => {
     expect(techStack.length).toBeGreaterThan(0);
     expect(new Set(techStack).size).toBe(techStack.length);
+  });
+
+  it("only attaches proof to skills that are actually listed", () => {
+    const slugs = new Set(caseStudies.map((project) => project.slug));
+
+    for (const [skill, proof] of Object.entries(skillProof)) {
+      expect(techStack).toContain(skill);
+      expect(proof.where).toBeTruthy();
+      expect(proof.note).toBeTruthy();
+      // A proof link must resolve to a real case study page.
+      if (proof.slug) expect(slugs.has(proof.slug)).toBe(true);
+    }
   });
 
   it("states four hero metrics with a value and a label each", () => {

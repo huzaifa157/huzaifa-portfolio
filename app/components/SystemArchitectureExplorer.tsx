@@ -1,7 +1,7 @@
 "use client";
 
-import { useId, useState } from "react";
-import { IconCheck, IconLayers, IconSparkle, IconTerminal } from "./icons";
+import { useState } from "react";
+import { IconCheck, IconLayers, IconTerminal } from "./icons";
 
 type StateStep = {
   id: string;
@@ -226,12 +226,15 @@ export default function SystemArchitectureExplorer() {
     <section className="section" id="systems" aria-labelledby="systems-title">
       <div className="shell">
         <div className="section-head" data-reveal>
-          <p className="mono section-index">03 — System Architecture</p>
+          <p className="eyebrow">
+            <span>03</span> Systems
+          </p>
           <h2 className="section-title" id="systems-title">
-            Lifecycle state machines and 4-tier clinic RBAC
+            How DentalFlow keeps its <em>state honest</em>
           </h2>
           <p className="section-note">
-            Production proof: interactive appointment lifecycle, scheduling validation, and server-side authorization.
+            Step through the appointment lifecycle and the four-role access model
+            behind the clinic platform.
           </p>
         </div>
 
@@ -252,8 +255,8 @@ export default function SystemArchitectureExplorer() {
               onClick={() => setActiveTab("statemachine")}
             >
               <IconTerminal />
-              <span>DentalFlow Appointment State Machine</span>
-              <span className="tab-pill">MongoDB · 409 Guards</span>
+              <span>Appointment state machine</span>
+              <span className="tab-pill">409 guards</span>
             </button>
 
             <button
@@ -266,8 +269,8 @@ export default function SystemArchitectureExplorer() {
               onClick={() => setActiveTab("rbac")}
             >
               <IconLayers />
-              <span>DentalFlow 4-Tier RBAC Matrix</span>
-              <span className="tab-pill">JWT &amp; Scoped Queries</span>
+              <span>Role-based access</span>
+              <span className="tab-pill">JWT · 4 roles</span>
             </button>
           </div>
 

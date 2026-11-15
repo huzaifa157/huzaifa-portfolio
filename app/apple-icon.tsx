@@ -14,14 +14,14 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#08090c",
+          background: "#0a0a09",
           backgroundImage:
-            "radial-gradient(120px 120px at 50% 0%, rgba(255,92,43,0.22), transparent 70%)",
+            "radial-gradient(120px 120px at 50% 0%, rgba(200,242,75,0.2), transparent 70%)",
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={logoDataUri({ stem: "#eef1f6", link: "#ff5c2b" })}
+          src={logoDataUri({ stem: "#f4f2eb", link: "#c8f24b" })}
           width={124}
           height={124}
           alt=""

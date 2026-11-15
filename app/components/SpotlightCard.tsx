@@ -1,44 +1,39 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
-  glowColor?: string;
 }
 
+/**
+ * A card with a soft glow that follows the pointer. The component only reports
+ * where the pointer is; whether the glow shows at all is decided in CSS, behind
+ * `(hover: hover) and (pointer: fine)` and `prefers-reduced-motion` — so there
+ * is no client state to hydrate and nothing to flash on touch devices.
+ */
 export default function SpotlightCard({
   children,
   className = "",
-  glowColor = "var(--glow)",
   ...props
 }: SpotlightCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [canHover, setCanHover] = useState(false);
 
-  useEffect(() => {
-    // Only enable pointer tracking on devices with fine pointer and hover support,
-    // and when reduced motion is not preferred.
-    const hasHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setCanHover(hasHover && !reducedMotion);
-  }, []);
+  function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+    const card = cardRef.current;
+    if (!card) return;
 
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    if (!canHover || !cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    cardRef.current.style.setProperty("--mouse-x", `${x}px`);
-    cardRef.current.style.setProperty("--mouse-y", `${y}px`);
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty("--mouse-x", `${event.clientX - rect.left}px`);
+    card.style.setProperty("--mouse-y", `${event.clientY - rect.top}px`);
   }
 
   return (
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className={`spotlight-card ${canHover ? "spotlight-active" : ""} ${className}`}
+      className={`spotlight-card ${className}`}
       {...props}
     >
       <div className="spotlight-glow" aria-hidden="true" />

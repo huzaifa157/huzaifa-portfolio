@@ -23,18 +23,15 @@ export default function ProjectsPage() {
         resumeHref={profile.resume}
       />
 
-      <section className="hero">
+      <section className="page-hero">
         <div className="shell">
-          <p className="mono section-index" data-reveal>
-            Index — {String(caseStudies.length).padStart(2, "0")} projects
+          <p className="eyebrow">
+            <span>{String(caseStudies.length).padStart(2, "0")}</span> Case studies
           </p>
-          <h1
-            className="display page-title"
-            data-reveal
-          >
-            Every project, with the reasoning attached.
+          <h1 className="page-title">
+            Every project, with the <em>reasoning attached.</em>
           </h1>
-          <p className="hero-lede" data-reveal>
+          <p className="hero-lede">
             Each entry documents the constraint that shaped the system, how it was
             implemented, and what changed once it shipped.
           </p>
@@ -50,16 +47,19 @@ export default function ProjectsPage() {
                 key={project.slug}
                 href={`/projects/${project.slug}`}
               >
-                <div className="index-card-shot">
+                <div className="artwork">
                   <Image
                     src={project.thumbnail}
-                    alt={`${project.title} — ${project.kicker}`}
+                    alt=""
                     width={1200}
                     height={630}
                   />
                 </div>
-                <p className="work-kicker">{project.kicker}</p>
-                <h3>{project.title}</h3>
+                <p className="project-meta">
+                  <span className="project-index">{project.index}</span>
+                  {project.kicker}
+                </p>
+                <h2>{project.title}</h2>
                 <p>{project.summary}</p>
                 <div className="chips">
                   {project.stack.slice(0, 5).map((item) => (
@@ -68,7 +68,7 @@ export default function ProjectsPage() {
                     </span>
                   ))}
                 </div>
-                <p className="link-inline">
+                <p className="index-card-cta">
                   Read case study
                   <IconArrowRight />
                 </p>

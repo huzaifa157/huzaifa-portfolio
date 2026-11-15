@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import BentoProjectGrid from "./components/BentoProjectGrid";
 import CopyEmail from "./components/CopyEmail";
 import GitHubContributionGraph from "./components/GitHubContributionGraph";
-import HeroMetrics from "./components/HeroMetrics";
 import InteractiveTechStack from "./components/InteractiveTechStack";
+import LocalTime from "./components/LocalTime";
+import ProjectShowcase from "./components/ProjectShowcase";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 import SystemArchitectureExplorer from "./components/SystemArchitectureExplorer";
@@ -15,67 +15,48 @@ import {
   IconGitHub,
   IconLinkedIn,
   IconMail,
-  IconRepo,
-  IconStar,
-  IconUserPlus,
-  IconUsers,
+  IconPhone,
 } from "./components/icons";
 import { homeNavLinks } from "./data/navigation";
 import {
   archiveCaseStudies,
-  caseStudies,
   experience,
+  featuredCaseStudies,
   heroMetrics,
+  nowBuilding,
   principles,
   profile,
-  signatureStack,
   skillCategoryLabels,
+  skillProof,
   skillsByCategory,
 } from "./data/portfolio";
 
 type GitHubUser = {
   public_repos: number;
-  followers: number;
-  following: number;
 };
 
-type GitHubRepo = {
-  stargazers_count: number;
-};
-
-async function getGitHubStats() {
+/** Only the repo count is shown; `null` hides the line rather than the panel. */
+async function getPublicRepoCount() {
   try {
-    const [userRes, reposRes] = await Promise.all([
-      fetch(`https://api.github.com/users/${profile.githubUsername}`, {
-        next: { revalidate: 3600 },
-      }),
-      fetch(
-        `https://api.github.com/users/${profile.githubUsername}/repos?per_page=100`,
-        { next: { revalidate: 3600 } }
-      ),
-    ]);
+    const response = await fetch(
+      `https://api.github.com/users/${profile.githubUsername}`,
+      { next: { revalidate: 3600 } }
+    );
 
-    if (!userRes.ok || !reposRes.ok) {
+    if (!response.ok) {
       return null;
     }
 
-    const user: GitHubUser = await userRes.json();
-    const repos: GitHubRepo[] = await reposRes.json();
-    const stars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
-
-    return {
-      repos: user.public_repos,
-      followers: user.followers,
-      following: user.following,
-      stars,
-    };
+    const user: GitHubUser = await response.json();
+    return user.public_repos;
   } catch {
     return null;
   }
 }
 
 export default async function Home() {
-  const githubStats = await getGitHubStats();
+  const publicRepos = await getPublicRepoCount();
+  const { currentRole } = profile;
 
   return (
     <main className="page" id="main-content">
@@ -88,155 +69,175 @@ export default async function Home() {
 
       {/* ------------------------------------------------------------ hero */}
       <section className="hero">
+        <div className="hero-backdrop" aria-hidden="true" />
+
         <div className="shell hero-grid">
-          <div>
-            <p className="status" data-reveal>
+          <div className="hero-copy">
+            <p className="status rise" style={{ "--i": 0 } as React.CSSProperties}>
               <span className="live-dot" aria-hidden="true" />
               {profile.availability}
             </p>
 
-            <h1 data-reveal>
-              I build production web systems{" "}
-              <em>that hold up under real users.</em>
+            <h1 className="rise" style={{ "--i": 1 } as React.CSSProperties}>
+              Full-stack engineer turning manual operations into{" "}
+              <em>production software.</em>
             </h1>
 
-            <p className="hero-lede" data-reveal>
-              {profile.positioning}
+            <p className="hero-lede rise" style={{ "--i": 2 } as React.CSSProperties}>
+              I&apos;m a software engineer at {currentRole.company}, building an
+              AI-driven insurance brokerage platform. In 2 years I&apos;ve
+              shipped production apps in insurance, healthcare, subscription
+              commerce, and travel — across web and mobile UIs, backend
+              services, databases, and cloud deployment.
             </p>
 
-            <div className="hero-actions" data-reveal>
+            <div className="hero-actions rise" style={{ "--i": 3 } as React.CSSProperties}>
               <a className="btn btn-primary" href={profile.resume} download>
                 <IconDownload />
                 Download résumé
               </a>
-              <Link className="btn btn-ghost" href="#experience">
-                See experience
+              <Link className="btn btn-ghost" href="#work">
+                See the work
                 <IconArrowRight />
               </Link>
-              <a
-                className="btn btn-quiet"
-                href={`mailto:${profile.email}`}
-              >
+              <a className="btn btn-quiet" href={`mailto:${profile.email}`}>
                 <IconMail />
                 Get in touch
               </a>
             </div>
 
-            <div className="hero-foot" data-reveal>
-              <span>{profile.location}</span>
-              <span>{profile.timezone}</span>
-              <span>{profile.educationShort}</span>
-            </div>
-          </div>
-
-          <aside className="spec" aria-label="Profile summary" data-reveal>
-            <div className="spec-head">
-              <div className="spec-photo">
-                <Image
-                  src="/huzaifa-profile.jpg"
-                  alt={`Portrait of ${profile.name}`}
-                  width={120}
-                  height={120}
-                  priority
-                />
-              </div>
-              <div className="spec-id">
-                <h2>{profile.name}</h2>
-                <p>{profile.headline}</p>
-              </div>
-            </div>
-
-            <dl className="spec-rows">
-              <div className="spec-row">
+            <dl className="hero-facts rise" style={{ "--i": 4 } as React.CSSProperties}>
+              <div>
                 <dt>Now</dt>
-                <dd>{profile.currentlyBuilding}</dd>
-              </div>
-              <div className="spec-row">
-                <dt>Focus</dt>
-                <dd>APIs, data modeling, auth &amp; access control, delivery</dd>
-              </div>
-              <div className="spec-row">
-                <dt>Based in</dt>
                 <dd>
-                  {profile.location} · {profile.timezone}
+                  {currentRole.title},{" "}
+                  <a href={currentRole.url} target="_blank" rel="noreferrer">
+                    {currentRole.company}
+                  </a>
+                  <span>{currentRole.location}</span>
                 </dd>
               </div>
-              <div className="spec-row">
-                <dt>Email</dt>
+              <div>
+                <dt>Based in</dt>
                 <dd>
-                  <a href={`mailto:${profile.email}`}>{profile.email}</a>
+                  {profile.location}
+                  <LocalTime timeZone={profile.timeZoneId} fallback={profile.timezone} />
+                </dd>
+              </div>
+              <div>
+                <dt>Education</dt>
+                <dd>
+                  BS Computer Science
+                  <span>UBIT, University of Karachi</span>
                 </dd>
               </div>
             </dl>
+          </div>
 
-            <div className="spec-links">
-              <a
-                href={profile.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub profile"
-                title="GitHub"
-              >
-                <IconGitHub />
-              </a>
-              <a
-                href={profile.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn profile"
-                title="LinkedIn"
-              >
-                <IconLinkedIn />
-              </a>
-              <a href={`mailto:${profile.email}`} aria-label="Send an email" title="Email">
-                <IconMail />
-              </a>
-              <a href={profile.resume} download aria-label="Download résumé" title="Résumé">
-                <IconDownload />
-              </a>
+          <aside
+            className="now rise"
+            style={{ "--i": 3 } as React.CSSProperties}
+            aria-label="What I am building now"
+          >
+            <div className="now-head">
+              <Image
+                className="now-avatar"
+                src="/huzaifa-profile.jpg"
+                alt={`Portrait of ${profile.name}`}
+                width={96}
+                height={96}
+                preload
+              />
+              <div className="now-id">
+                <p className="now-name">{profile.name}</p>
+                <p className="now-role">
+                  {currentRole.title} · {currentRole.company}
+                </p>
+              </div>
+              <span className="tag tag-accent">Now building</span>
+            </div>
+
+            <div className="now-body">
+              <h2 className="now-title">{nowBuilding.title}</h2>
+              <p className="now-summary">{nowBuilding.summary}</p>
+
+              <ol className="pipeline">
+                {nowBuilding.stages.map((stage, index) => (
+                  <li key={stage} style={{ "--i": index } as React.CSSProperties}>
+                    <span className="pipeline-node" aria-hidden="true" />
+                    <span className="pipeline-num">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="pipeline-label">{stage}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="now-foot">
+              {nowBuilding.stack.map((item) => (
+                <span className="chip" key={item}>
+                  {item}
+                </span>
+              ))}
             </div>
           </aside>
         </div>
 
         <div className="shell">
-          <HeroMetrics metrics={heroMetrics} />
+          <dl className="metrics rise" style={{ "--i": 5 } as React.CSSProperties}>
+            {heroMetrics.map((metric) => (
+              <div className="metric" key={metric.label}>
+                <dt>{metric.label}</dt>
+                <dd className="metric-value">{metric.value}</dd>
+                {metric.source ? <dd className="metric-source">{metric.source}</dd> : null}
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
-      {/* ---------------------------------------------------------- ticker */}
-      <div className="ticker" aria-hidden="true">
-        <div className="ticker-track">
-          {[...signatureStack, ...signatureStack].map((tech, index) => (
-            <span key={`${tech}-${index}`}>{tech}</span>
-          ))}
-        </div>
-      </div>
-
       {/* -------------------------------------------------- 01: experience */}
-      <section className="section" id="experience">
+      <section className="section" id="experience" aria-labelledby="experience-title">
         <div className="shell">
           <div className="section-head" data-reveal>
-            <p className="mono section-index">01 — Experience</p>
-            <h2 className="section-title">Where the work has been shipped</h2>
+            <p className="eyebrow">
+              <span>01</span> Experience
+            </p>
+            <h2 className="section-title" id="experience-title">
+              Where the work has <em>shipped</em>
+            </h2>
+            <p className="section-note">
+              Remote for a UAE team today, client delivery before that — owning
+              features from requirements to release in both.
+            </p>
           </div>
 
-          <div className="timeline">
+          <div className="xp">
             {experience.map((job) => (
-              <article className="tl-item" key={`${job.company}-${job.role}`} data-reveal>
-                <div className="tl-meta">
-                  <p className="tl-period">
+              <article className="xp-item" key={`${job.company}-${job.role}`} data-reveal>
+                <div className="xp-meta">
+                  <p className="xp-period">
                     {job.current ? <span className="live-dot" aria-hidden="true" /> : null}
                     {job.period}
                   </p>
-                  <p className="tl-company">{job.company}</p>
-                  <p className="tl-context">{job.context}</p>
+                  <p className="xp-company">{job.company}</p>
+                  {job.location ? <p className="xp-location">{job.location}</p> : null}
+                  {job.url ? (
+                    <a className="link-inline" href={job.url} target="_blank" rel="noreferrer">
+                      {job.urlLabel ?? job.url}
+                      <IconArrowUpRight />
+                    </a>
+                  ) : null}
                 </div>
 
-                <div>
-                  <h3 className="tl-role">{job.role}</h3>
-                  <ul className="tl-bullets">
+                <div className="xp-body">
+                  <h3 className="xp-role">{job.role}</h3>
+                  <p className="xp-context">{job.context}</p>
+                  <ul className="xp-bullets">
                     {job.bullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
+                      <li key={bullet.lead}>
+                        <strong>{bullet.lead}</strong>
+                        {bullet.rest}
+                      </li>
                     ))}
                   </ul>
                   <div className="chips">
@@ -253,198 +254,171 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* --------------------------------------------- 02: work (bento grid) */}
-      <BentoProjectGrid projects={caseStudies} />
+      {/* --------------------------------------------------------- 02: work */}
+      <section className="section" id="work" aria-labelledby="work-title">
+        <div className="shell">
+          <div className="section-head" data-reveal>
+            <p className="eyebrow">
+              <span>02</span> Selected work
+            </p>
+            <h2 className="section-title" id="work-title">
+              Systems built to <em>hold up</em>
+            </h2>
+            <p className="section-note">
+              Three projects in depth, four more below. Every one has a case
+              study covering the constraint, the build, and the outcome.
+            </p>
+          </div>
 
-      {/* --------------------------------- archive strip under bento grid */}
-      <div className="shell">
-        <div className="archive" data-reveal>
-          {archiveCaseStudies.map((project) => (
-            <Link
-              className="archive-item"
-              key={project.slug}
-              href={`/projects/${project.slug}`}
-            >
-              <h3>
-                {project.title}
-                <IconArrowUpRight />
-              </h3>
-              <p>{project.summary}</p>
-            </Link>
-          ))}
+          <ProjectShowcase featured={featuredCaseStudies} archive={archiveCaseStudies} />
         </div>
-      </div>
+      </section>
 
       {/* ----------------------------- 03: interactive systems architecture */}
       <SystemArchitectureExplorer />
 
       {/* ------------------------------------------------ 04: how I build */}
-      <section className="section" id="approach">
+      <section className="section" id="approach" aria-labelledby="approach-title">
         <div className="shell">
           <div className="section-head" data-reveal>
-            <p className="mono section-index">04 — How I build</p>
-            <h2 className="section-title">Rules I hold to, and where each one shipped</h2>
+            <p className="eyebrow">
+              <span>04</span> Approach
+            </p>
+            <h2 className="section-title" id="approach-title">
+              Rules I <em>hold to</em>
+            </h2>
             <p className="section-note">
-              Opinions are cheap; these are the ones that survived contact with a
-              production codebase.
+              Opinions are cheap. Each of these is tied to the project where it
+              shipped.
             </p>
           </div>
 
-          <div className="principles">
-            {principles.map((principle) => (
-              <article className="principle" key={principle.title} data-reveal>
+          <ol className="principles">
+            {principles.map((principle, index) => (
+              <li className="principle" key={principle.title} data-reveal>
+                <span className="principle-num">{String(index + 1).padStart(2, "0")}</span>
                 <h3>{principle.title}</h3>
                 <p>{principle.body}</p>
                 <p className="proof">{principle.proof}</p>
-              </article>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
       {/* ------------------------------------------------ 05: stack & signal */}
-      <section className="section" id="stack">
+      <section className="section" id="stack" aria-labelledby="stack-title">
         <div className="shell">
           <div className="section-head" data-reveal>
-            <p className="mono section-index">05 — Stack &amp; signal</p>
-            <h2 className="section-title">Tools I reach for, and public activity</h2>
+            <p className="eyebrow">
+              <span>05</span> Stack
+            </p>
+            <h2 className="section-title" id="stack-title">
+              The tools, and <em>where I used them</em>
+            </h2>
             <p className="section-note">
-              Select any technology to inspect where it is used across production case studies.
+              Select any skill to see the role or project behind it.
             </p>
           </div>
 
           <InteractiveTechStack
             skillsByCategory={skillsByCategory}
             skillCategoryLabels={skillCategoryLabels}
+            skillProof={skillProof}
+            initialSkill="Next.js"
           />
 
-          <div className="gh-panel" data-reveal>
-            {githubStats ? (
-              <>
-                <div className="gh-stats">
-                  <div className="gh-stat">
-                    <p className="gh-stat-head">
-                      <IconRepo />
-                      Public repos
-                    </p>
-                    <b>{githubStats.repos}</b>
-                  </div>
-                  <div className="gh-stat">
-                    <p className="gh-stat-head">
-                      <IconStar />
-                      Stars earned
-                    </p>
-                    <b>{githubStats.stars}</b>
-                  </div>
-                  <div className="gh-stat">
-                    <p className="gh-stat-head">
-                      <IconUsers />
-                      Followers
-                    </p>
-                    <b>{githubStats.followers}</b>
-                  </div>
-                  <div className="gh-stat">
-                    <p className="gh-stat-head">
-                      <IconUserPlus />
-                      Following
-                    </p>
-                    <b>{githubStats.following}</b>
-                  </div>
-                </div>
-
-                <GitHubContributionGraph username={profile.githubUsername} />
-
-                <div className="gh-foot">
-                  <span>Live from the GitHub API · cached 1 hour</span>
-                  <a
-                    className="link-inline"
-                    href={profile.github}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    @{profile.githubUsername}
-                    <IconArrowUpRight />
-                  </a>
-                </div>
-              </>
-            ) : (
-              <div className="gh-fallback">
-                <p>GitHub stats are temporarily unavailable.</p>
-                <a
-                  className="btn btn-ghost"
-                  href={profile.github}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <IconGitHub />
-                  Open GitHub profile
-                </a>
-              </div>
-            )}
+          <div className="gh" data-reveal>
+            <div className="gh-head">
+              <p className="gh-title">
+                <IconGitHub />
+                GitHub activity
+              </p>
+              <a className="link-inline" href={profile.github} target="_blank" rel="noreferrer">
+                {publicRepos ? `${publicRepos} public repositories · ` : ""}@
+                {profile.githubUsername}
+                <IconArrowUpRight />
+              </a>
+            </div>
+            <GitHubContributionGraph username={profile.githubUsername} />
+            <p className="gh-note">
+              Public activity only — work for Super Auto and client projects
+              lives in private repositories.
+            </p>
           </div>
         </div>
       </section>
 
       {/* -------------------------------------------------- 06: background */}
-      <section className="section" id="about">
+      <section className="section" id="about" aria-labelledby="about-title">
         <div className="shell">
           <div className="section-head" data-reveal>
-            <p className="mono section-index">06 — Background</p>
-            <h2 className="section-title">Education, recognition, and the short version</h2>
+            <p className="eyebrow">
+              <span>06</span> About
+            </p>
+            <h2 className="section-title" id="about-title">
+              The <em>short version</em>
+            </h2>
           </div>
 
-          <div className="two-col">
-            <article className="panel" data-reveal>
+          <div className="about">
+            <div className="about-prose" data-reveal>
+              <p className="about-lead">{profile.summary}</p>
+              <p>{profile.ownership}</p>
+              <p>
+                I care most about the unglamorous parts — schema design that
+                survives a feature request, authorization that holds when the UI
+                is bypassed, and error responses a client can actually branch
+                on. {profile.positioning}
+              </p>
+              <ul className="about-industries" aria-label="Industries shipped in">
+                {profile.industries.map((industry) => (
+                  <li key={industry}>{industry}</li>
+                ))}
+              </ul>
+              <div className="chips">
+                <span className="chip chip-accent">{profile.availability}</span>
+                <span className="chip">Remote-friendly</span>
+                <span className="chip">Open to relocation</span>
+              </div>
+            </div>
+
+            <div className="about-records" data-reveal>
               <h3>Education</h3>
               {profile.education.map((entry) => (
                 <div className="record" key={entry.degree}>
                   <b>{entry.degree}</b>
                   <span>{entry.institution}</span>
-                  <span className="year">{entry.period}</span>
+                  <span className="record-meta">{entry.location}</span>
                 </div>
               ))}
 
-              <h3 className="panel-heading-spaced">Recognition</h3>
+              <h3>Certification &amp; recognition</h3>
               {profile.achievements.map((item) => (
                 <div className="record" key={item.title}>
                   <b>{item.title}</b>
                   <span>{item.issuer}</span>
-                  <span className="year">{item.year}</span>
+                  <span className="record-meta">{item.year}</span>
                 </div>
               ))}
-            </article>
-
-            <article className="panel" data-reveal>
-              <h3>In short</h3>
-              <p className="panel-prose">
-                {profile.heroSummary}
-              </p>
-              <p className="panel-prose">
-                I care most about the unglamorous parts — schema design that
-                survives a feature request, authorization that holds when the UI
-                is bypassed, and error responses a client can actually branch on.
-                I write documentation and hand-off material as part of shipping,
-                not after it.
-              </p>
-              <div className="chips">
-                <span className="chip chip-accent">Available for 2026–2027 roles</span>
-                <span className="chip">Open to relocation</span>
-                <span className="chip">Remote-friendly</span>
-              </div>
-            </article>
+            </div>
           </div>
         </div>
       </section>
 
       {/* --------------------------------------------------------- contact */}
-      <section className="section" id="contact">
+      <section className="section section-contact" id="contact" aria-labelledby="contact-title">
         <div className="shell">
           <div className="contact" data-reveal>
-            <p className="mono section-index">Contact</p>
-            <h2>Let&apos;s talk about what you&apos;re building.</h2>
-            <p>
+            <p className="eyebrow">
+              <span className="live-dot" aria-hidden="true" /> Contact
+            </p>
+            <h2 id="contact-title">
+              Let&apos;s talk about what you&apos;re <em>building.</em>
+            </h2>
+            <p className="contact-lede">
               I reply to every message. If you are hiring for a full-stack or
-              backend role, the résumé below has the short version and the case
+              backend role, the résumé has the short version and the case
               studies have the long one.
             </p>
 
@@ -462,20 +436,24 @@ export default async function Home() {
 
             <div className="contact-rows">
               <a href={`mailto:${profile.email}`}>
-                <p className="k">Email</p>
-                <p className="v">{profile.email}</p>
+                <IconMail />
+                <span className="k">Email</span>
+                <span className="v">{profile.email}</span>
               </a>
               <a href={`tel:${profile.phoneHref}`}>
-                <p className="k">Phone</p>
-                <p className="v">{profile.phone}</p>
+                <IconPhone />
+                <span className="k">Phone</span>
+                <span className="v">{profile.phone}</span>
               </a>
               <a href={profile.linkedin} target="_blank" rel="noreferrer">
-                <p className="k">LinkedIn</p>
-                <p className="v">/in/syedhuzaifa-codes</p>
+                <IconLinkedIn />
+                <span className="k">LinkedIn</span>
+                <span className="v">{profile.linkedinHandle}</span>
               </a>
               <a href={profile.github} target="_blank" rel="noreferrer">
-                <p className="k">GitHub</p>
-                <p className="v">@{profile.githubUsername}</p>
+                <IconGitHub />
+                <span className="k">GitHub</span>
+                <span className="v">@{profile.githubUsername}</span>
               </a>
             </div>
           </div>

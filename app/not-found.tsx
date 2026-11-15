@@ -10,7 +10,7 @@ export default function NotFound() {
   return (
     <main className="page" id="main-content">
       <div className="shell state-page">
-        <p className="mono" style={{ color: "var(--accent)" }}>
+        <p className="mono">
           Error 404
         </p>
         <h1>No route matched.</h1>

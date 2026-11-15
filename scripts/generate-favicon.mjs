@@ -22,8 +22,8 @@ const SIZES = [16, 32, 48];
 
 // Mirrors LOGO_GEOMETRY in app/components/Logo.tsx. Kept as literals because
 // this script runs outside the Next/TypeScript pipeline.
-const STEM = "#0a0b0d";
-const PLATE = "#ff5c2b";
+const STEM = "#10150a";
+const PLATE = "#c8f24b";
 
 function markup(size) {
   const radius = size <= 16 ? 3 : 5;

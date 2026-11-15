@@ -35,7 +35,7 @@ const iconFor: Record<
   resume: IconDownload,
 };
 
-const groupOrder: CommandItem["group"][] = ["Navigate", "Open", "Contact"];
+const groupOrder: CommandItem["group"][] = ["Navigate", "Projects", "Open", "Contact"];
 
 /** Lowercases and strips diacritics, so typing "resume" finds "résumé". */
 function fold(value: string) {

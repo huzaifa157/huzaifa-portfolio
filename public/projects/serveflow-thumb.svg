@@ -1,80 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="ServeFlow — Café management &amp; ordering">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="ServeFlow — order state machine schematic">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0d1015"/>
-      <stop offset="1" stop-color="#08090c"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="0.12" cy="0" r="0.9">
-      <stop offset="0" stop-color="#ff5c2b" stop-opacity="0.16"/>
-      <stop offset="1" stop-color="#ff5c2b" stop-opacity="0"/>
+    <radialGradient id="glow" cx="0.85" cy="0" r="0.9">
+      <stop offset="0" stop-color="#c8f24b" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#c8f24b" stop-opacity="0"/>
     </radialGradient>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    <pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.1" fill="#ffffff" fill-opacity="0.06"/>
     </pattern>
   </defs>
 
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="#0d0d0b"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
-  <rect x="0" y="0" width="1200" height="3" fill="#ff5c2b"/>
 
-  <g font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="17" letter-spacing="2.4" fill="#69727f">
-    <text x="64" y="108">archive</text>
-    <text x="110" y="108" fill="#ff5c2b">/</text>
-    <text x="136" y="108">CAFÉ MANAGEMENT &amp; ORDERING</text>
-  </g>
+  <rect x="90" y="60" width="13" height="13" rx="3" fill="#c8f24b"/>
+  <text x="120" y="75" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="22" letter-spacing="1.6" fill="#b5b2a7" text-anchor="start">ORDER STATE MACHINE</text>
 
-  <text x="64" y="240" font-family="Inter, 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="82" font-weight="600" letter-spacing="-3" fill="#eef1f6">ServeFlow</text>
+  <rect x="90" y="300" width="158" height="70" rx="35" fill="#c8f24b" fill-opacity="0.28" stroke="#c8f24b" stroke-width="1.5"/>
+  <text x="169" y="342" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="19" letter-spacing="1" fill="#f4f2eb" text-anchor="middle">STATE 1</text>
+  <path d="M256 335h41.5" stroke="#c8f24b" stroke-width="1.5"/>
+  <path d="M289.5 329l8 6-8 6" fill="none" stroke="#c8f24b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="305.5" y="300" width="158" height="70" rx="35" fill="#c8f24b" fill-opacity="0.55" stroke="#c8f24b" stroke-width="1.5"/>
+  <text x="384.5" y="342" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="19" letter-spacing="1" fill="#f4f2eb" text-anchor="middle">STATE 2</text>
+  <path d="M471.5 335h41.5" stroke="#c8f24b" stroke-width="1.5"/>
+  <path d="M505 329l8 6-8 6" fill="none" stroke="#c8f24b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="521" y="300" width="158" height="70" rx="35" fill="#c8f24b" fill-opacity="0.95" stroke="#c8f24b" stroke-width="1.5"/>
+  <text x="600" y="342" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="19" letter-spacing="1" fill="#0f1405" text-anchor="middle">STATE 3</text>
+  <path d="M687 335h41.5" stroke="#45453c" stroke-width="1.5"/>
+  <path d="M720.5 329l8 6-8 6" fill="none" stroke="#45453c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="736.5" y="300" width="158" height="70" rx="35" fill="#141412" fill-opacity="1" stroke="#45453c" stroke-width="1.5"/>
+  <text x="815.5" y="342" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="19" letter-spacing="1" fill="#807d72" text-anchor="middle">STATE 4</text>
+  <path d="M902.5 335h41.5" stroke="#45453c" stroke-width="1.5"/>
+  <path d="M936 329l8 6-8 6" fill="none" stroke="#45453c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="952" y="300" width="158" height="70" rx="35" fill="#141412" fill-opacity="1" stroke="#45453c" stroke-width="1.5"/>
+  <text x="1031" y="342" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="19" letter-spacing="1" fill="#807d72" text-anchor="middle">STATE 5</text>
+  <path d="M815.5 292C815.5 170 384.5 170 384.5 292" fill="none" stroke="#807d72" stroke-width="1.5" stroke-dasharray="5 8" stroke-linecap="round"/>
+  <rect x="542" y="172" width="116" height="52" rx="26" fill="#0d0d0b" stroke="#c8f24b" stroke-opacity="0.7"/>
+  <text x="600" y="206" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="23" letter-spacing="1.6" fill="#c8f24b" text-anchor="middle">409</text>
 
-  <rect x="64" y="286" width="72" height="3" rx="1.5" fill="#ff5c2b"/>
-
-  <text x="64" y="344" font-family="Inter, 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="25" fill="#a2abbb">15 tables · 18 endpoints · 3 roles</text>
-
-  <g font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="15" letter-spacing="1.6" fill="#69727f">
-    <text x="64" y="556">MUHAMMAD HUZAIFA</text>
-    <text x="64" y="584" fill="#262d3a">CASE STUDY</text>
-  </g>
-
-  <rect x="660" y="96" width="476" height="438" rx="18" fill="#0a0d12" stroke="#1b202a"/>
-  <g>
-    <circle cx="686" cy="120" r="4.5" fill="#262d3a"/>
-    <circle cx="702" cy="120" r="4.5" fill="#262d3a"/>
-    <circle cx="718" cy="120" r="4.5" fill="#ff5c2b" fill-opacity="0.7"/>
-  </g>
-  <line x1="660" y1="142" x2="1136" y2="142" stroke="#1b202a"/>
-
-  <g>
-      <rect x="694.0" y="136.0" width="59.7" height="56.0" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="763.7" y="136.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="833.3" y="136.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="903.0" y="136.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="972.7" y="136.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="1042.3" y="136.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="694.0" y="202.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="763.7" y="202.0" width="59.7" height="56.0" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="833.3" y="202.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="903.0" y="202.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="972.7" y="202.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="1042.3" y="202.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="694.0" y="268.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="763.7" y="268.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="833.3" y="268.0" width="59.7" height="56.0" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="903.0" y="268.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="972.7" y="268.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="1042.3" y="268.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="694.0" y="334.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="763.7" y="334.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="833.3" y="334.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="903.0" y="334.0" width="59.7" height="56.0" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="972.7" y="334.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="1042.3" y="334.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="694.0" y="400.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="763.7" y="400.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="833.3" y="400.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="903.0" y="400.0" width="59.7" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="972.7" y="400.0" width="59.7" height="56.0" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="1042.3" y="400.0" width="59.7" height="56.0" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-  </g>
-
-  <text x="694" y="502" font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="14" letter-spacing="1.8" fill="#69727f">ORDER STATE PATH</text>
+  <text x="90" y="580" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="21" letter-spacing="0.4" fill="#807d72" text-anchor="start">15 tables · 18 endpoints · 3 roles</text>
 </svg>

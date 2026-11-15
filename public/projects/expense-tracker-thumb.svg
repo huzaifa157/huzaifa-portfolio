@@ -1,75 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Expense Tracker — Cross-platform mobile app">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Expense Tracker — one codebase, two platforms schematic">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0d1015"/>
-      <stop offset="1" stop-color="#08090c"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="0.12" cy="0" r="0.9">
-      <stop offset="0" stop-color="#ff5c2b" stop-opacity="0.16"/>
-      <stop offset="1" stop-color="#ff5c2b" stop-opacity="0"/>
+    <radialGradient id="glow" cx="0.85" cy="0" r="0.9">
+      <stop offset="0" stop-color="#c8f24b" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#c8f24b" stop-opacity="0"/>
     </radialGradient>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    <pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.1" fill="#ffffff" fill-opacity="0.06"/>
     </pattern>
   </defs>
 
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="#0d0d0b"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
-  <rect x="0" y="0" width="1200" height="3" fill="#ff5c2b"/>
 
-  <g font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="17" letter-spacing="2.4" fill="#69727f">
-    <text x="64" y="108">04</text>
-    <text x="110" y="108" fill="#ff5c2b">/</text>
-    <text x="136" y="108">CROSS-PLATFORM MOBILE APP</text>
-  </g>
+  <rect x="90" y="60" width="13" height="13" rx="3" fill="#c8f24b"/>
+  <text x="120" y="75" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="22" letter-spacing="1.6" fill="#b5b2a7" text-anchor="start">ONE CODEBASE, TWO PLATFORMS</text>
 
-  <text x="64" y="240" font-family="Inter, 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="82" font-weight="600" letter-spacing="-3" fill="#eef1f6">Expense Tracker</text>
+  <rect x="204" y="122" width="196" height="356" rx="30" fill="#141412" stroke="#45453c" stroke-width="1.5"/>
+  <rect x="272" y="136" width="60" height="8" rx="4" fill="#45453c"/>
+  <rect x="226" y="170" width="92" height="12" rx="6" fill="#807d72"/>
+  <rect x="226" y="198" width="152" height="74" rx="14" fill="#c8f24b" fill-opacity="0.92"/>
+  <rect x="242" y="218" width="64" height="9" rx="4.5" fill="#0f1405" fill-opacity="0.55"/>
+  <rect x="242" y="238" width="104" height="14" rx="7" fill="#0f1405"/>
+  <rect x="226" y="292" width="152" height="30" rx="9" fill="#1b1b18" stroke="#2c2c26"/>
+  <rect x="238" y="302" width="70" height="9" rx="4.5" fill="#45453c"/>
+  <rect x="330" y="302" width="36" height="9" rx="4.5" fill="#807d72" fill-opacity="0.7"/>
+  <rect x="226" y="334" width="152" height="30" rx="9" fill="#1b1b18" stroke="#2c2c26"/>
+  <rect x="238" y="344" width="54" height="9" rx="4.5" fill="#45453c"/>
+  <rect x="330" y="344" width="36" height="9" rx="4.5" fill="#807d72" fill-opacity="0.7"/>
+  <rect x="226" y="376" width="152" height="30" rx="9" fill="#1b1b18" stroke="#2c2c26"/>
+  <rect x="238" y="386" width="82" height="9" rx="4.5" fill="#45453c"/>
+  <rect x="330" y="386" width="36" height="9" rx="4.5" fill="#807d72" fill-opacity="0.7"/>
+  <rect x="226" y="418" width="152" height="30" rx="9" fill="#1b1b18" stroke="#2c2c26"/>
+  <rect x="238" y="428" width="60" height="9" rx="4.5" fill="#45453c"/>
+  <rect x="330" y="428" width="36" height="9" rx="4.5" fill="#807d72" fill-opacity="0.7"/>
+  <text x="302" y="512" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="22" letter-spacing="1.6" fill="#b5b2a7" text-anchor="middle">IOS</text>
+  <rect x="800" y="122" width="196" height="356" rx="30" fill="#141412" stroke="#45453c" stroke-width="1.5"/>
+  <rect x="868" y="136" width="60" height="8" rx="4" fill="#45453c"/>
+  <rect x="822" y="170" width="92" height="12" rx="6" fill="#807d72"/>
+  <rect x="822" y="198" width="152" height="74" rx="14" fill="#c8f24b" fill-opacity="0.92"/>
+  <rect x="838" y="218" width="64" height="9" rx="4.5" fill="#0f1405" fill-opacity="0.55"/>
+  <rect x="838" y="238" width="104" height="14" rx="7" fill="#0f1405"/>
+  <rect x="822" y="292" width="152" height="30" rx="9" fill="#1b1b18" stroke="#2c2c26"/>
+  <rect x="834" y="302" width="70" height="9" rx="4.5" fill="#45453c"/>
+  <rect x="926" y="302" width="36" height="9" rx="4.5" fill="#807d72" fill-opacity="0.7"/>
+  <rect x="822" y="334" width="152" height="30" rx="9" fill="#1b1b18" stroke="#2c2c26"/>
+  <rect x="834" y="344" width="54" height="9" rx="4.5" fill="#45453c"/>
+  <rect x="926" y="344" width="36" height="9" rx="4.5" fill="#807d72" fill-opacity="0.7"/>
+  <rect x="822" y="376" width="152" height="30" rx="9" fill="#1b1b18" stroke="#2c2c26"/>
+  <rect x="834" y="386" width="82" height="9" rx="4.5" fill="#45453c"/>
+  <rect x="926" y="386" width="36" height="9" rx="4.5" fill="#807d72" fill-opacity="0.7"/>
+  <rect x="822" y="418" width="152" height="30" rx="9" fill="#1b1b18" stroke="#2c2c26"/>
+  <rect x="834" y="428" width="60" height="9" rx="4.5" fill="#45453c"/>
+  <rect x="926" y="428" width="36" height="9" rx="4.5" fill="#807d72" fill-opacity="0.7"/>
+  <text x="898" y="512" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="22" letter-spacing="1.6" fill="#b5b2a7" text-anchor="middle">ANDROID</text>
+  <path d="M400 300H504M696 300H800" stroke="#807d72" stroke-width="1.5" stroke-dasharray="3 8" stroke-linecap="round"/>
+  <rect x="504" y="258" width="192" height="84" rx="16" fill="#141412" stroke="#c8f24b" stroke-opacity="0.7"/>
+  <text x="600" y="294" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="20" letter-spacing="1.6" fill="#c8f24b" text-anchor="middle">ONE</text>
+  <text x="600" y="322" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="20" letter-spacing="1.6" fill="#c8f24b" text-anchor="middle">CODEBASE</text>
 
-  <rect x="64" y="286" width="72" height="3" rx="1.5" fill="#ff5c2b"/>
-
-  <text x="64" y="344" font-family="Inter, 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="25" fill="#a2abbb">One Expo codebase · iOS + Android</text>
-
-  <g font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="15" letter-spacing="1.6" fill="#69727f">
-    <text x="64" y="556">MUHAMMAD HUZAIFA</text>
-    <text x="64" y="584" fill="#262d3a">CASE STUDY</text>
-  </g>
-
-  <rect x="660" y="96" width="476" height="438" rx="18" fill="#0a0d12" stroke="#1b202a"/>
-  <g>
-    <circle cx="686" cy="120" r="4.5" fill="#262d3a"/>
-    <circle cx="702" cy="120" r="4.5" fill="#262d3a"/>
-    <circle cx="718" cy="120" r="4.5" fill="#ff5c2b" fill-opacity="0.7"/>
-  </g>
-  <line x1="660" y1="142" x2="1136" y2="142" stroke="#1b202a"/>
-
-  <g>
-      <rect x="694.0" y="136.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="777.6" y="136.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="861.2" y="136.0" width="73.6" height="56.0" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="944.8" y="136.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="1028.4" y="136.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="694.0" y="202.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="777.6" y="202.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="861.2" y="202.0" width="73.6" height="56.0" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="944.8" y="202.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="1028.4" y="202.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="694.0" y="268.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="777.6" y="268.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="861.2" y="268.0" width="73.6" height="56.0" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="944.8" y="268.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="1028.4" y="268.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="694.0" y="334.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="777.6" y="334.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="861.2" y="334.0" width="73.6" height="56.0" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="944.8" y="334.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="1028.4" y="334.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="694.0" y="400.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="777.6" y="400.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="861.2" y="400.0" width="73.6" height="56.0" rx="6" fill="#ff5c2b" fill-opacity="0.9" stroke="#ff5c2b" stroke-opacity="0.5"/>
-      <rect x="944.8" y="400.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-      <rect x="1028.4" y="400.0" width="73.6" height="56.0" rx="6" fill="#161b24" fill-opacity="1" stroke="#262d3a" stroke-opacity="1"/>
-  </g>
-
-  <text x="694" y="502" font-family="'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="14" letter-spacing="1.8" fill="#69727f">SYNCED PLATFORMS</text>
+  <text x="90" y="580" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="21" letter-spacing="0.4" fill="#807d72" text-anchor="start">Expo · React Native · JWT</text>
 </svg>

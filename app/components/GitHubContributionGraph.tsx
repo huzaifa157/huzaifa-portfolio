@@ -20,8 +20,10 @@ export default function GitHubContributionGraph({
     <div className="contrib">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={`https://ghchart.rshah.org/${color ?? "ff5c2b"}/${username}`}
+        src={`https://ghchart.rshah.org/${color ?? "4d7a00"}/${username}`}
         alt={`${username}'s GitHub contribution graph for the past year`}
+        width={663}
+        height={104}
         loading="lazy"
         onError={() => setFailed(true)}
       />

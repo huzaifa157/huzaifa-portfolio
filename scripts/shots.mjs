@@ -1,8 +1,12 @@
 /**
- * Design review helper: scrolls the page so every reveal animation settles,
- * then captures the sections named on the command line.
+ * Design review helper: captures the page one viewport at a time, so
+ * scroll-driven reveals are in their settled state in every frame (a single
+ * full-page capture would catch everything below the fold mid-animation).
  *
- *   node scripts/shots.mjs http://localhost:4310 ./out dark 1440
+ *   node scripts/shots.mjs http://localhost:3000 ./out/home dark 1440
+ *   node scripts/shots.mjs http://localhost:3000 ./out/home light 390 ".contact"
+ *
+ * With selectors, each matching element is captured instead.
  */
 
 import { chromium } from "playwright";
@@ -13,37 +17,26 @@ const theme = process.argv[4] || "dark";
 const width = Number(process.argv[5] || 1440);
 const selectors = (process.argv[6] || "").split(",").filter(Boolean);
 
+const height = width < 700 ? 844 : 900;
 const browser = await chromium.launch();
-const page = await browser.newPage({
-  viewport: { width, height: width < 700 ? 844 : 1000 },
+const context = await browser.newContext({
+  viewport: { width, height },
   deviceScaleFactor: 1,
 });
 
+// The theme script in the layout reads this before first paint.
+await context.addInitScript((value) => {
+  window.localStorage.setItem("theme", value);
+}, theme);
+
+const page = await context.newPage();
 await page.goto(url, { waitUntil: "networkidle" });
 
-if (theme === "light") {
-  await page.click(".theme-toggle");
-  await page.waitForTimeout(300);
-}
+// Instant jumps, or the walk outruns the site's smooth scrolling.
+await page.addStyleTag({ content: "html { scroll-behavior: auto !important; }" });
+await page.waitForTimeout(1200);
 
-// Walk the whole page so every IntersectionObserver fires, then come back up.
-await page.evaluate(async () => {
-  // The site sets scroll-behavior: smooth; instant jumps are needed here or the
-  // walk outruns the animation and lower sections never enter the viewport.
-  document.documentElement.style.scrollBehavior = "auto";
-  const step = window.innerHeight * 0.8;
-  for (let y = 0; y < document.body.scrollHeight; y += step) {
-    window.scrollTo(0, y);
-    await new Promise((resolve) => setTimeout(resolve, 90));
-  }
-  window.scrollTo(0, 0);
-});
-await page.waitForTimeout(900);
-
-if (selectors.length === 0) {
-  await page.screenshot({ path: `${outPrefix}.png`, fullPage: true });
-  console.log(`Saved ${outPrefix}.png`);
-} else {
+if (selectors.length > 0) {
   for (const selector of selectors) {
     const element = page.locator(selector).first();
     await element.scrollIntoViewIfNeeded();
@@ -51,6 +44,19 @@ if (selectors.length === 0) {
     const name = selector.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "");
     await element.screenshot({ path: `${outPrefix}-${name}.png` });
     console.log(`Saved ${outPrefix}-${name}.png`);
+  }
+} else {
+  const total = await page.evaluate(() => document.documentElement.scrollHeight);
+  const step = height - 80;
+  let index = 0;
+
+  for (let y = 0; y < total; y += step) {
+    await page.evaluate((top) => window.scrollTo(0, top), y);
+    await page.waitForTimeout(350);
+    index += 1;
+    const file = `${outPrefix}-${String(index).padStart(2, "0")}.png`;
+    await page.screenshot({ path: file });
+    console.log(`Saved ${file}`);
   }
 }
 

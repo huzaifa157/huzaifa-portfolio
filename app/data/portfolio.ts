@@ -1,6 +1,8 @@
 export type Metric = {
   value: string;
   label: string;
+  /** Where the number comes from — shown under hero metrics. */
+  source?: string;
 };
 
 export type ProjectCaseStudy = {
@@ -16,6 +18,8 @@ export type ProjectCaseStudy = {
   stack: string[];
   metrics: Metric[];
   thumbnail: string;
+  /** A real product screenshot, shown in a browser frame when present. */
+  screenshot?: { src: string; width: number; height: number; url: string };
   github?: string;
   repoNote?: string;
   live?: string;
@@ -25,54 +29,73 @@ export type ProjectCaseStudy = {
   architecture: string[];
 };
 
+/** The résumé bolds the first clause of each bullet; `lead` is that clause. */
+export type ExperienceBullet = {
+  lead: string;
+  rest: string;
+};
+
 export type ExperienceEntry = {
   role: string;
   company: string;
+  location?: string;
   context: string;
   period: string;
   stack: string[];
-  bullets: string[];
+  bullets: ExperienceBullet[];
   current?: boolean;
+  url?: string;
+  urlLabel?: string;
 };
 
 export const profile = {
   name: "Muhammad Huzaifa",
-  headline: "Software Developer | AI & Cloud",
+  headline: "Full-Stack Software Engineer",
+  // First-person version of the résumé summary.
+  summary:
+    "I'm a full-stack software engineer with 2 years of experience shipping production apps in insurance, healthcare, subscription commerce, and travel. I work across the stack — web and mobile UIs, backend services, databases, cloud deployment, and AI-powered features — and I pick up new tools fast.",
+  ownership:
+    "I own work from requirements to release, with a focus on secure, maintainable code.",
   // One sentence a recruiter can quote back to a hiring manager.
   positioning:
     "The server is the source of truth: typed APIs, authorization enforced per request rather than per screen, and state machines that reject illegal transitions instead of quietly accepting them.",
-  heroSummary:
-    "Software Developer with 2 years of working experience designing, developing, and deploying full-stack applications for real-world and client projects. Experienced across frontend and backend development, REST APIs, authentication, RBAC, database design, and application architecture.",
   email: "m.huzaifa157@gmail.com",
   phone: "+92 310 2003791",
   phoneHref: "+923102003791",
   location: "Karachi, Pakistan",
   timezone: "PKT · UTC+5",
+  timeZoneId: "Asia/Karachi",
   github: "https://github.com/huzaifa157",
   githubUsername: "huzaifa157",
   linkedin: "https://www.linkedin.com/in/syedhuzaifa-codes/",
+  linkedinHandle: "/in/syedhuzaifa-codes",
   site: "https://huzaifa-portfolio-blush.vercel.app",
   resume: "/resume.pdf",
-  availability: "Open to full-stack engineering roles · 2026–2027",
-  educationShort: "BSCS, University of Karachi — expected 2027",
-  currentlyBuilding:
-    "Healthify — a D2C healthy meal subscription platform for the UAE market built with React, React Native for Web, TypeScript, and Tailwind CSS.",
+  availability: "Open to full-stack engineering roles",
+  industries: ["Insurance", "Healthcare", "Subscription commerce", "Travel"],
+  currentRole: {
+    title: "Software Engineer",
+    company: "Super Auto",
+    location: "UAE · Remote",
+    url: "https://superauto.ae",
+  },
+  educationShort: "BSCS, UBIT — University of Karachi",
   education: [
     {
       degree: "Bachelor of Science in Computer Science (BSCS)",
       institution: "UBIT, University of Karachi",
-      period: "Expected 2027",
+      location: "Karachi, Pakistan",
     },
   ],
   achievements: [
     {
-      title: "Selected for Prime Minister's Youth Laptop Scheme",
-      issuer: "Government of Pakistan (High Academic Performance)",
+      title: "Web Development — Certificate of Completion",
+      issuer: "Apna College",
       year: "2025",
     },
     {
-      title: "Certificate of Completion — Web Development",
-      issuer: "Apna College",
+      title: "Selected for Prime Minister's Youth Laptop Scheme",
+      issuer: "Government of Pakistan (High Academic Performance)",
       year: "2025",
     },
     {
@@ -84,13 +107,32 @@ export const profile = {
 };
 
 /**
- * Hero proof points verified against codebase and resume.
+ * The hero card: what is on the desk right now. Every stage name comes from the
+ * Super Auto bullets on the résumé — nothing here is invented detail.
+ */
+export const nowBuilding = {
+  title: "AI-driven insurance brokerage platform",
+  summary:
+    "Automating brokerage workflows from document intake to quotations and policy operations.",
+  stages: [
+    "Document intake",
+    "Structured data extraction",
+    "Quotations",
+    "Policy operations",
+    "Automated reporting",
+  ],
+  stack: ["React", "Next.js", "LLM APIs", "Docker", "CI/CD"],
+};
+
+/**
+ * Hero proof points. Every number appears on the résumé — keep them in sync so
+ * the site and the PDF never disagree in an interview.
  */
 export const heroMetrics: Metric[] = [
-  { value: "49", label: "REST endpoints (DentalFlow)" },
-  { value: "14", label: "MongoDB models & schemas" },
-  { value: "4", label: "Role-based access tiers" },
-  { value: "4", label: "Products shipped to users" },
+  { value: "4", label: "Industries shipped in", source: "Insurance · healthcare · commerce · travel" },
+  { value: "49", label: "REST endpoints", source: "DentalFlow" },
+  { value: "14", label: "MongoDB models", source: "DentalFlow" },
+  { value: "4", label: "Roles under server-side RBAC", source: "DentalFlow" },
 ];
 
 /**
@@ -114,147 +156,311 @@ export const principles = [
     proof: "DentalFlow",
   },
   {
-    title: "Cross-platform UI with shared primitives",
-    body: "Shared components with React Native for Web reduce maintenance and guarantee identical design fidelity across mobile and desktop browsers.",
+    title: "The schema evolves through migrations",
+    body: "PostgreSQL changes ship as EF Core migrations, with constraints and transactions guarding the invariants the application depends on.",
     proof: "Healthify",
   },
   {
     title: "Validate at the edge, fail predictably",
-    body: "Zod and Joi schemas guard every mutation, with consistent status codes and error shapes the client can actually branch on.",
-    proof: "DentalFlow · Wanderlust",
+    body: "Joi and Zod schemas guard every mutation, with consistent status codes and error shapes the client can actually branch on.",
+    proof: "Wanderlust · ServeFlow",
   },
   {
-    title: "Green CI or it does not ship",
-    body: "Containerized and automated testing in CI pipelines catch environment drift and broken builds before a client ever sees them.",
-    proof: "DentalFlow · Healthify",
+    title: "Containerized, and deployed by the pipeline",
+    body: "Applications run in Docker and ship through automated CI/CD, so a release is a repeatable pipeline run rather than a manual step.",
+    proof: "Super Auto · ServeFlow",
   },
 ];
 
 export const experience: ExperienceEntry[] = [
   {
+    role: "Software Engineer",
+    company: "Super Auto",
+    location: "UAE · Remote",
+    context: "AI-driven insurance brokerage platform, company website, and B2B operations software",
+    period: "Feb 2026 — Present",
+    current: true,
+    url: "https://superauto.ae",
+    urlLabel: "superauto.ae",
+    stack: [
+      "React",
+      "Next.js",
+      "LLM APIs",
+      "Data pipelines",
+      "API integrations",
+      "Docker",
+      "CI/CD",
+    ],
+    bullets: [
+      {
+        lead: "Developed and launched the company website (superauto.ae)",
+        rest: " with React and Next.js, and refactored the codebase for better performance and maintainability.",
+      },
+      {
+        lead: "Collaborated with the Team Lead to design, build, and test a full-stack, AI-driven insurance brokerage platform",
+        rest: " that automates workflows from document intake to quotations and policy operations.",
+      },
+      {
+        lead: "Built data pipelines and API integrations connecting multiple business systems",
+        rest: ", supporting document intake, structured data extraction, and automated reporting.",
+      },
+      {
+        lead: "Delivered responsive React interfaces",
+        rest: " and integrated them with backend services for day-to-day brokerage operations.",
+      },
+      {
+        lead: "Integrated LLM APIs into business applications",
+        rest: ", adding AI features that reduce manual work for the operations team.",
+      },
+      {
+        lead: "Contributed to multiple B2B projects",
+        rest: " with operations teams, turning manual processes into production-ready software.",
+      },
+      {
+        lead: "Containerized applications with Docker",
+        rest: " and supported automated CI/CD deployments.",
+      },
+    ],
+  },
+  {
     role: "Software Developer",
     company: "BranDive Media Solutions",
-    context: "Full-stack client applications, multi-branch clinic management, and API design",
-    period: "Jan 2026 — Sep 2026",
+    context: "Full-stack client applications, from requirements through deployment",
+    period: "Jun 2025 — Feb 2026",
     current: false,
     stack: [
-      "React.js",
+      "React",
       "Next.js",
       "Node.js",
       "Express.js",
       "ASP.NET Core",
-      "Entity Framework",
-      "AWS",
       "MongoDB",
       "PostgreSQL",
-      "Prisma",
-      "Tailwind CSS",
-      "React Native",
-      "NativeWind",
       "JWT / RBAC",
     ],
     bullets: [
-      "Developed and delivered full-stack applications across diverse business domains, translating business requirements into scalable, maintainable, and production-ready software solutions.",
-      "Built responsive and reusable frontend interfaces and RESTful APIs using React, Node.js, Express.js and ASP.NET Core, integrating frontend workflows with backend services.",
-      "Designed and implemented database-driven workflows, authentication, authorization, and RBAC while maintaining application reliability, security, and code quality.",
-      "Developed server-side business logic, API integrations, validation workflows, and data-access layers using MongoDB and PostgreSQL-based applications.",
-      "Collaborated with developers and stakeholders throughout the software development lifecycle, from requirement analysis and implementation to testing, debugging, deployment, and ongoing improvements.",
-      "Diagnosed and resolved application issues and improved existing features to deliver reliable, maintainable, and user-focused software.",
-    ],
-  },
-  {
-    role: "Freelance Software Developer",
-    company: "Independent",
-    context: "Client applications, D2C subscription platforms, and full-stack solutions",
-    period: "Nov 2024 — Present",
-    current: true,
-    stack: [
-      "React.js",
-      "React Native for Web",
-      "TypeScript",
-      "Next.js",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "PostgreSQL",
-      "Tailwind CSS",
-    ],
-    bullets: [
-      "Developed and deployed full-stack web applications for clients across multiple domains, taking ownership from requirements analysis and solution design through development, testing, deployment, and maintenance.",
-      "Built responsive frontend interfaces, RESTful APIs, database-driven workflows, authentication systems, and third-party integrations based on client requirements.",
+      {
+        lead: "Owned end-to-end delivery of full-stack web applications",
+        rest: ", from requirements and design through testing and deployment.",
+      },
+      {
+        lead: "Built reusable React and Next.js components and RESTful services",
+        rest: " with Node.js, Express.js, and ASP.NET Core, connecting frontend workflows to backend services.",
+      },
+      {
+        lead: "Implemented authentication, authorization, and RBAC",
+        rest: " with database-driven workflows on MongoDB and PostgreSQL, keeping applications secure and reliable.",
+      },
+      {
+        lead: "Developed server-side business logic, third-party API integrations, and validation layers",
+        rest: " for production applications.",
+      },
+      {
+        lead: "Collaborated with developers and stakeholders across the full development lifecycle",
+        rest: ", diagnosing and fixing production issues to improve existing features.",
+      },
     ],
   },
 ];
 
+/** Categories and items mirror the résumé's skills section, in the same order. */
 export const skillsByCategory = {
-  languages: ["JavaScript", "TypeScript", "C#", "SQL", "Python"],
-  backend: [
-    "Node.js",
-    "Express.js",
-    "ASP.NET Core",
-    "REST APIs",
-    "API Design",
-    "CRUD Workflows",
-  ],
+  languages: ["JavaScript (ES6+)", "TypeScript", "C#", "Python", "SQL", "HTML5", "CSS3"],
   frontend: [
     "React.js",
     "Next.js",
+    "Redux",
     "React Native",
-    "NativeWind",
     "Tailwind CSS",
-    "Recharts",
+    "NativeWind",
+    "Responsive Web Design",
+  ],
+  backend: [
+    "Node.js",
+    "Express.js",
+    "ASP.NET Core Web API",
+    "RESTful APIs",
+    "JWT",
+    "RBAC",
   ],
   data: [
-    "MongoDB",
-    "Mongoose",
     "PostgreSQL",
-    "Prisma",
+    "MongoDB (Atlas)",
+    "Mongoose",
+    "Prisma ORM",
     "Entity Framework Core",
-    "Redis",
   ],
   cloud: [
-    "LLM APIs",
-    "AI Integration",
-    "AWS",
-    "Vercel",
     "Docker",
     "CI/CD",
-  ],
-  engineering: [
-    "JWT",
-    "Authentication & RBAC",
-    "Database Design",
-    "API Integration",
+    "AWS (Lambda)",
     "Git",
+    "GitHub",
+    "Postman",
+    "Jest",
+    "Agile/Scrum",
   ],
+  ai: ["LLM APIs", "Data pipelines", "Structured data extraction"],
 };
 
-export const skillCategoryLabels: Record<keyof typeof skillsByCategory, string> = {
+export type SkillCategory = keyof typeof skillsByCategory;
+
+export const skillCategoryLabels: Record<SkillCategory, string> = {
   languages: "Languages",
+  frontend: "Frontend",
   backend: "Backend",
-  frontend: "Frontend & Mobile",
-  data: "Databases & ORMs",
-  cloud: "AI & Cloud",
-  engineering: "Engineering & Security",
+  data: "Databases",
+  cloud: "Cloud & Tools",
+  ai: "AI & Data",
 };
 
 export const techStack = Object.values(skillsByCategory).flat();
 
-/** Marquee row under the hero — the tools recruiters scan for first. */
+export type SkillProof = {
+  /** Where it was used, as a short label. */
+  where: string;
+  /** Case study slug to link to, or omit to link to the experience section. */
+  slug?: string;
+  note: string;
+};
+
+/**
+ * Where each skill was actually used. A skill without an entry still appears in
+ * the stack, just without a "used in" link.
+ */
+export const skillProof: Record<string, SkillProof> = {
+  "JavaScript (ES6+)": {
+    where: "DentalFlow · Wanderlust",
+    slug: "dentalflow",
+    note: "Node.js and Express services, React interfaces, and the booking and scheduling logic behind both platforms.",
+  },
+  TypeScript: {
+    where: "ServeFlow",
+    slug: "serveflow",
+    note: "Typed route handlers and Zod-validated contracts across a Next.js and Prisma codebase.",
+  },
+  "C#": {
+    where: "Healthify",
+    slug: "healthify",
+    note: "ASP.NET Core Web APIs for orders, customers, the meal catalog, and subscription lifecycles.",
+  },
+  SQL: {
+    where: "Healthify",
+    slug: "healthify",
+    note: "PostgreSQL schemas designed with constraints and transactions, evolved through EF Core migrations.",
+  },
+  "React.js": {
+    where: "Super Auto · DentalFlow",
+    note: "Responsive interfaces for day-to-day brokerage operations at Super Auto, and four role-specific clinic dashboards in DentalFlow.",
+  },
+  "Next.js": {
+    where: "superauto.ae · DentalFlow",
+    slug: "dentalflow",
+    note: "Built and launched the Super Auto company website, and the role-scoped dashboards of DentalFlow.",
+  },
+  "React Native": {
+    where: "Expense Tracker",
+    slug: "expense-tracker",
+    note: "One Expo codebase shipping to iOS and Android, with sessions that survive app restarts.",
+  },
+  NativeWind: {
+    where: "Expense Tracker",
+    slug: "expense-tracker",
+    note: "Utility-first styling for the cross-platform mobile UI.",
+  },
+  "Tailwind CSS": {
+    where: "DentalFlow",
+    slug: "dentalflow",
+    note: "The design layer for the clinic dashboards and the public booking flow.",
+  },
+  "Node.js": {
+    where: "DentalFlow · Wanderlust",
+    slug: "dentalflow",
+    note: "Backend services handling scheduling, authentication, and state management.",
+  },
+  "Express.js": {
+    where: "DentalFlow · Wanderlust",
+    slug: "wanderlust",
+    note: "REST services with route, controller, and model separation, and validation on every mutating route.",
+  },
+  "ASP.NET Core Web API": {
+    where: "Healthify",
+    slug: "healthify",
+    note: "The API surface for a UAE meal-subscription platform: orders, customers, catalog, and subscriptions.",
+  },
+  "RESTful APIs": {
+    where: "DentalFlow",
+    slug: "dentalflow",
+    note: "49 endpoints covering appointments, medical records, prescriptions, invoices, and payments.",
+  },
+  JWT: {
+    where: "DentalFlow",
+    slug: "dentalflow",
+    note: "JWT authentication with role checks enforced on every protected endpoint.",
+  },
+  RBAC: {
+    where: "DentalFlow",
+    slug: "dentalflow",
+    note: "Server-side role-based access control across patient, doctor, receptionist, and administrator roles.",
+  },
+  PostgreSQL: {
+    where: "Healthify · ServeFlow",
+    slug: "healthify",
+    note: "Relational schemas with migrations, constraints, and transactions.",
+  },
+  "MongoDB (Atlas)": {
+    where: "DentalFlow",
+    slug: "dentalflow",
+    note: "14 models linking patients, appointments, prescriptions, invoices, and payments, deployed on MongoDB Atlas.",
+  },
+  Mongoose: {
+    where: "DentalFlow",
+    slug: "dentalflow",
+    note: "Schema definitions and data access for the clinic platform's 14 models.",
+  },
+  "Prisma ORM": {
+    where: "ServeFlow",
+    slug: "serveflow",
+    note: "Typed queries and transactional state updates over a 15-table PostgreSQL schema.",
+  },
+  "Entity Framework Core": {
+    where: "Healthify",
+    slug: "healthify",
+    note: "Schema design, migrations, constraints, and transactions for the subscription platform.",
+  },
+  Docker: {
+    where: "Super Auto",
+    note: "Containerized applications as part of the delivery workflow at Super Auto.",
+  },
+  "CI/CD": {
+    where: "Super Auto",
+    note: "Supported automated CI/CD deployments for containerized applications.",
+  },
+  "LLM APIs": {
+    where: "Super Auto · AI Studio",
+    note: "Integrated LLM APIs into business applications at Super Auto, adding AI features that reduce manual work for the operations team.",
+  },
+  "Data pipelines": {
+    where: "Super Auto",
+    note: "Pipelines and API integrations connecting multiple business systems, supporting document intake and automated reporting.",
+  },
+  "Structured data extraction": {
+    where: "Super Auto",
+    note: "Turning incoming documents into structured data inside the brokerage workflow.",
+  },
+};
+
+/** Shown on the social card — the tools recruiters scan for first. */
 export const signatureStack = [
   "TypeScript",
-  "React.js",
+  "React",
   "Next.js",
   "Node.js",
   "ASP.NET Core",
-  "C#",
-  "MongoDB",
   "PostgreSQL",
-  "Prisma",
-  "AWS",
-  "Vercel",
-  "Tailwind CSS",
-  "JWT / RBAC",
+  "MongoDB",
+  "Docker",
+  "LLM APIs",
 ];
 
 export const caseStudies: ProjectCaseStudy[] = [
@@ -262,9 +468,9 @@ export const caseStudies: ProjectCaseStudy[] = [
     slug: "dentalflow",
     index: "01",
     title: "DentalFlow",
-    kicker: "Multi-branch dental clinic platform",
+    kicker: "Dental clinic management platform",
     summary:
-      "Production clinic portal for a live client: 3 branches, 4 user roles, 14 data models, and 49 endpoints covering appointments, records, and billing.",
+      "A multi-branch clinic platform — 3 branches, 4 user roles, 14 MongoDB models, and 49 REST endpoints covering appointments, medical records, prescriptions, invoices, and payments.",
     thesis:
       "Four roles reading the same records means authorization has to be enforced per request, not per screen.",
     role: "Software Developer — BranDive Media Solutions",
@@ -272,7 +478,7 @@ export const caseStudies: ProjectCaseStudy[] = [
     featured: true,
     stack: [
       "Next.js",
-      "React.js",
+      "React",
       "Node.js",
       "Express.js",
       "MongoDB",
@@ -288,25 +494,32 @@ export const caseStudies: ProjectCaseStudy[] = [
       { value: "3", label: "Clinic branches" },
     ],
     thumbnail: "/projects/dentalflow-thumb.svg",
+    screenshot: {
+      src: "/projects/dentalflow-screen.jpg",
+      width: 2880,
+      height: 1800,
+      url: "dental-flow-dental-clinic-managemen.vercel.app",
+    },
     github: "https://github.com/huzaifa157/DentalFlow-Dental-Clinic-Management-Portal",
     live: "https://dental-flow-dental-clinic-managemen.vercel.app",
     challenge:
       "A clinic group needed one unified platform for patients, doctors, receptionists, and administrators across three branches — where every role sees a different slice of the same appointments, records, and invoices, and no role can reach another's data.",
     implementation: [
-      "Designed 14 MongoDB models and 49 REST endpoints covering appointments, medical records, prescriptions, invoices, and payments.",
+      "Architected 14 MongoDB models and 49 REST endpoints covering appointments, medical records, prescriptions, invoices, and payments.",
       "Implemented JWT authentication with server-side role-based access control across patient, doctor, receptionist, and administrator workflows.",
-      "Built an appointment-booking flow spanning branch, treatment, doctor, and time-slot selection, surfaced through four role-specific Next.js dashboards.",
+      "Engineered appointment availability logic and a booking flow spanning branch, treatment, doctor, and time-slot selection, surfaced through four role-specific Next.js dashboards.",
       "Built Recharts analytics dashboards for revenue, patient growth, and doctor/branch performance.",
-      "Produced ER diagrams, workflow documentation, and technical handoff materials for the client team.",
+      "Wrote database seeding and deployed the database on MongoDB Atlas.",
+      "Produced ER diagrams, workflow documentation, and technical handoff materials.",
     ],
     impact: [
       "Replaced fragmented per-branch scheduling with a single portal covering three branches.",
       "Gave administrators revenue, growth, and per-doctor performance visibility they previously assembled by hand.",
-      "Shipped with documentation complete enough for the client team to operate and extend the system.",
+      "Shipped with documentation complete enough for another team to operate and extend the system.",
     ],
     architecture: [
       "Next.js dashboards rendered per role, with data access scoped server-side",
-      "MongoDB with 14 models linking patients, appointments, prescriptions, invoices, and payments",
+      "MongoDB Atlas with 14 models linking patients, appointments, prescriptions, invoices, and payments",
       "JWT sessions with role checks on every protected endpoint",
       "Recharts analytics layer over aggregated clinic and branch metrics",
     ],
@@ -315,47 +528,40 @@ export const caseStudies: ProjectCaseStudy[] = [
     slug: "healthify",
     index: "02",
     title: "Healthify",
-    kicker: "D2C healthy meal subscription platform (UAE)",
+    kicker: "Meal subscription platform (UAE)",
     summary:
-      "Responsive healthy meal subscription platform for the UAE market built with React, React Native for Web, TypeScript, and Tailwind CSS.",
+      "The backend of a UAE meal-subscription product: ASP.NET Core Web APIs for orders, customers, the meal catalog, and subscription lifecycles, over a PostgreSQL schema managed with EF Core.",
     thesis:
-      "A subscription product wins or loses on conversion flows and responsive macro calculators.",
-    role: "Full-Stack Developer — Independent",
+      "A subscription is a long-running record, so its rules belong in the schema's constraints and transactions — not in whichever screen happens to edit it.",
+    role: "Full-stack developer — APIs, schema, and React integration",
     timeline: "2026",
     featured: true,
-    stack: [
-      "React.js",
-      "React Native for Web",
-      "TypeScript",
-      "Tailwind CSS",
-      "Next.js",
-      "Vercel",
-    ],
+    stack: ["C#", "ASP.NET Core", "EF Core", "PostgreSQL", "React"],
     metrics: [
-      { value: "UAE", label: "Target market (AED)" },
-      { value: "Web+Mobile", label: "React Native for Web" },
-      { value: "Macros", label: "Calorie & meal calculator" },
-      { value: "Vercel", label: "Production deployment" },
+      { value: "4", label: "API domains" },
+      { value: "EF Core", label: "Migrations & transactions" },
+      { value: "RBAC", label: "Role-based authorization" },
     ],
     thumbnail: "/projects/healthify-thumb.svg",
-    repoNote: "Client production project",
+    repoNote: "Client project · private repo",
     challenge:
-      "Deliver a fluid, high-converting meal subscription user experience tailored to the UAE market that runs seamlessly across desktop browsers and mobile web with shared component primitives.",
+      "A meal-subscription business runs on recurring records: a subscription moves through a lifecycle, and each change touches customers, orders, and the meal catalog together. The backend had to keep those records consistent and restrict every change to the roles allowed to make it.",
     implementation: [
-      "Built a responsive healthy meal subscription platform for the UAE market using React, React Native for Web, TypeScript, and Tailwind CSS.",
-      "Developed reusable cross-platform UI components and responsive layouts for consistent web and mobile experiences.",
-      "Implemented interactive meal plan sections, calorie and macro-focused content, AED pricing presentation, FAQ sections, and conversion-oriented user flows.",
-      "Deployed the production frontend on Vercel with a focus on responsive design, performance, and maintainable component architecture.",
+      "Developed ASP.NET Core Web APIs for orders, customers, the meal catalog, and subscription lifecycles.",
+      "Designed PostgreSQL schemas with EF Core, including migrations, constraints, and transactions.",
+      "Implemented authentication, role-based authorization, and request validation on the API.",
+      "Integrated the APIs with the React frontend through reusable services.",
     ],
     impact: [
-      "Shared component primitives reduced UI maintenance across mobile web and desktop.",
-      "Interactive macro calculators allow users to customize caloric targets before subscribing.",
-      "Fast loading times and conversion-focused checkout flow tailored to UAE payment and delivery expectations.",
+      "Orders, customers, catalog, and subscriptions are served from one validated API surface.",
+      "Schema changes ship as EF Core migrations, so the database evolves in step with the code.",
+      "The React frontend reaches the backend through a reusable service layer rather than one-off calls.",
     ],
     architecture: [
-      "React & React Native for Web component hierarchy with Tailwind CSS",
-      "TypeScript domain types for meal plans, nutritional breakdowns, and subscriptions",
-      "Vercel edge deployment with automated preview and production pipeline",
+      "ASP.NET Core Web API exposing order, customer, meal catalog, and subscription endpoints",
+      "PostgreSQL schema managed through EF Core migrations, with constraints and transactions",
+      "Authentication, role-based authorization, and request validation at the API boundary",
+      "React frontend consuming the API through reusable services",
     ],
   },
   {
@@ -364,7 +570,7 @@ export const caseStudies: ProjectCaseStudy[] = [
     title: "Wanderlust",
     kicker: "Full-stack travel marketplace",
     summary:
-      "Listing marketplace with booking logic that prevents overlapping reservations, plus a hardened set of state-changing routes.",
+      "A listing marketplace with image uploads, reviews, price filtering, paginated search, and map-based discovery — with every state-changing route hardened.",
     thesis: "A booking system is a concurrency problem wearing a CRUD costume.",
     role: "Solo — full stack",
     timeline: "2025",
@@ -372,15 +578,15 @@ export const caseStudies: ProjectCaseStudy[] = [
     stack: [
       "Node.js",
       "Express.js",
-      "MongoDB Atlas",
-      "EJS",
+      "MongoDB",
       "Passport.js",
-      "Cloudinary",
       "Mapbox",
+      "Cloudinary",
+      "EJS",
     ],
     metrics: [
-      { value: "0", label: "Overlapping bookings" },
       { value: "5", label: "Hardening layers" },
+      { value: "0", label: "Overlapping bookings" },
       { value: "GeoJSON", label: "Map-based discovery" },
     ],
     thumbnail: "/projects/wanderlust-thumb.svg",
@@ -388,14 +594,14 @@ export const caseStudies: ProjectCaseStudy[] = [
     challenge:
       "Listings, reviews, images, and bookings all mutate shared state from public routes. The system needed correct reservation math and a defense layer that assumed every request was hostile.",
     implementation: [
-      "Built a travel marketplace supporting listing creation, image uploads, reviews, full-text search, price filtering, and paginated discovery.",
-      "Engineered booking logic that prevents overlapping reservations, calculates multi-night totals, supports cancellations, and enforces guest-only cancellation.",
-      "Secured state-changing workflows with Passport.js authentication, ownership-based authorization, CSRF protection, Joi validation, rate limiting, and NoSQL-injection sanitization.",
+      "Built listing management, image uploads, reviews, price filtering, and paginated search.",
+      "Secured state-changing workflows with Passport.js authentication, ownership checks, Joi validation, rate limiting, and NoSQL-injection sanitization.",
       "Integrated Cloudinary image storage and Mapbox geocoding with MongoDB GeoJSON for interactive listing maps.",
+      "Engineered booking logic that prevents overlapping reservations, calculates multi-night totals, and supports guest-only cancellation.",
     ],
     impact: [
-      "Double-booked date ranges became structurally impossible rather than merely unlikely.",
       "Every mutating route sits behind authentication, ownership checks, validation, and rate limiting.",
+      "Double-booked date ranges became structurally impossible rather than merely unlikely.",
       "Geospatial search turned a flat list of listings into map-based discovery.",
     ],
     architecture: [
@@ -416,7 +622,7 @@ export const caseStudies: ProjectCaseStudy[] = [
       "Mobile auth is judged on what happens after the app is killed, not at login.",
     role: "Solo — mobile + API",
     timeline: "2025",
-    featured: true,
+    featured: false,
     stack: [
       "React Native",
       "Expo",

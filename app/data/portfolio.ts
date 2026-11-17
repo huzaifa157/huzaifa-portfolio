@@ -72,6 +72,8 @@ export const profile = {
   site: "https://huzaifa-portfolio-blush.vercel.app",
   resume: "/resume.pdf",
   availability: "Open to full-stack engineering roles",
+  experience: "2 years",
+  focus: "APIs, data modeling, auth & access control, AI features",
   industries: ["Insurance", "Healthcare", "Subscription commerce", "Travel"],
   currentRole: {
     title: "Software Engineer",
@@ -104,24 +106,6 @@ export const profile = {
       year: "2026",
     },
   ],
-};
-
-/**
- * The hero card: what is on the desk right now. Every stage name comes from the
- * Super Auto bullets on the résumé — nothing here is invented detail.
- */
-export const nowBuilding = {
-  title: "AI-driven insurance brokerage platform",
-  summary:
-    "Automating brokerage workflows from document intake to quotations and policy operations.",
-  stages: [
-    "Document intake",
-    "Structured data extraction",
-    "Quotations",
-    "Policy operations",
-    "Automated reporting",
-  ],
-  stack: ["React", "Next.js", "LLM APIs", "Docker", "CI/CD"],
 };
 
 /**
@@ -450,7 +434,7 @@ export const skillProof: Record<string, SkillProof> = {
   },
 };
 
-/** Shown on the social card — the tools recruiters scan for first. */
+/** Shown on the profile card and the social card — the tools recruiters scan for first. */
 export const signatureStack = [
   "TypeScript",
   "React",

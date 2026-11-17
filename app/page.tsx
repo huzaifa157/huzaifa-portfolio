@@ -23,9 +23,9 @@ import {
   experience,
   featuredCaseStudies,
   heroMetrics,
-  nowBuilding,
   principles,
   profile,
+  signatureStack,
   skillCategoryLabels,
   skillProof,
   skillsByCategory,
@@ -106,7 +106,33 @@ export default async function Home() {
               </a>
             </div>
 
-            <dl className="hero-facts rise" style={{ "--i": 4 } as React.CSSProperties}>
+          </div>
+
+          <aside
+            className="profile-card rise"
+            style={{ "--i": 3 } as React.CSSProperties}
+            aria-label="Profile summary"
+          >
+            <div className="profile-head">
+              <Image
+                className="profile-photo"
+                src="/huzaifa-profile.jpg"
+                alt={`Portrait of ${profile.name}`}
+                width={176}
+                height={176}
+                preload
+              />
+              <div className="profile-id">
+                <h2>{profile.name}</h2>
+                <p>{profile.headline}</p>
+                <p className="profile-status">
+                  <span className="live-dot" aria-hidden="true" />
+                  Open to new roles
+                </p>
+              </div>
+            </div>
+
+            <dl className="profile-facts">
               <div>
                 <dt>Now</dt>
                 <dd>
@@ -116,6 +142,10 @@ export default async function Home() {
                   </a>
                   <span>{currentRole.location}</span>
                 </dd>
+              </div>
+              <div>
+                <dt>Experience</dt>
+                <dd>{profile.experience}</dd>
               </div>
               <div>
                 <dt>Based in</dt>
@@ -131,53 +161,37 @@ export default async function Home() {
                   <span>UBIT, University of Karachi</span>
                 </dd>
               </div>
-            </dl>
-          </div>
-
-          <aside
-            className="now rise"
-            style={{ "--i": 3 } as React.CSSProperties}
-            aria-label="What I am building now"
-          >
-            <div className="now-head">
-              <Image
-                className="now-avatar"
-                src="/huzaifa-profile.jpg"
-                alt={`Portrait of ${profile.name}`}
-                width={96}
-                height={96}
-                preload
-              />
-              <div className="now-id">
-                <p className="now-name">{profile.name}</p>
-                <p className="now-role">
-                  {currentRole.title} · {currentRole.company}
-                </p>
+              <div>
+                <dt>Focus</dt>
+                <dd>{profile.focus}</dd>
               </div>
-              <span className="tag tag-accent">Now building</span>
-            </div>
+            </dl>
 
-            <div className="now-body">
-              <h2 className="now-title">{nowBuilding.title}</h2>
-              <p className="now-summary">{nowBuilding.summary}</p>
-
-              <ol className="pipeline">
-                {nowBuilding.stages.map((stage, index) => (
-                  <li key={stage} style={{ "--i": index } as React.CSSProperties}>
-                    <span className="pipeline-node" aria-hidden="true" />
-                    <span className="pipeline-num">{String(index + 1).padStart(2, "0")}</span>
-                    <span className="pipeline-label">{stage}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            <div className="now-foot">
-              {nowBuilding.stack.map((item) => (
+            <div className="profile-stack">
+              {signatureStack.slice(0, 6).map((item) => (
                 <span className="chip" key={item}>
                   {item}
                 </span>
               ))}
+            </div>
+
+            <div className="profile-links">
+              <a href={profile.github} target="_blank" rel="noreferrer">
+                <IconGitHub />
+                <span>GitHub</span>
+              </a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer">
+                <IconLinkedIn />
+                <span>LinkedIn</span>
+              </a>
+              <a href={`mailto:${profile.email}`}>
+                <IconMail />
+                <span>Email</span>
+              </a>
+              <a href={profile.resume} download>
+                <IconDownload />
+                <span>Résumé</span>
+              </a>
             </div>
           </aside>
         </div>

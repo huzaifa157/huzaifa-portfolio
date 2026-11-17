@@ -41,7 +41,7 @@ template. It is documented at the top of that file, but in short:
 ```
 app/
   layout.tsx              root metadata, fonts, JSON-LD, theme script
-  page.tsx                homepage: hero + "now building" card, metrics,
+  page.tsx                homepage: hero + profile card, metrics,
                           experience, work, systems, approach, stack + GitHub,
                           about, contact
   opengraph-image.tsx     generated PNG social card (1200x630)
@@ -76,8 +76,7 @@ Everything a recruiter reads lives in `app/data/portfolio.ts`:
 
 | Export             | Drives                                              |
 | ------------------ | --------------------------------------------------- |
-| `profile`          | hero, about, contact, footer, metadata, JSON-LD     |
-| `nowBuilding`      | the "now building" card and its pipeline in the hero|
+| `profile`          | hero + profile card, about, contact, metadata       |
 | `heroMetrics`      | the four-number band under the hero                 |
 | `experience`       | the experience section                              |
 | `caseStudies`      | project cards, `/projects`, every case study page   |

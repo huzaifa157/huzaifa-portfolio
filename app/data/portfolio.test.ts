@@ -7,7 +7,6 @@ import {
   experience,
   featuredCaseStudies,
   heroMetrics,
-  nowBuilding,
   principles,
   profile,
   skillCategoryLabels,
@@ -40,6 +39,12 @@ describe("profile", () => {
     expect(experience.find((job) => job.current)?.company).toBe(
       profile.currentRole.company
     );
+  });
+
+  it("fills in the facts the hero profile card shows", () => {
+    expect(profile.experience).toBeTruthy();
+    expect(profile.focus).toBeTruthy();
+    expect(profile.location).toBeTruthy();
   });
 
   it("keeps the tel: href dial-safe", () => {
@@ -158,12 +163,6 @@ describe("experience", () => {
 
   it("marks exactly one role as current", () => {
     expect(experience.filter((job) => job.current)).toHaveLength(1);
-  });
-
-  it("lists the stages of the work in progress", () => {
-    expect(nowBuilding.title).toBeTruthy();
-    expect(nowBuilding.stages.length).toBeGreaterThan(1);
-    expect(new Set(nowBuilding.stages).size).toBe(nowBuilding.stages.length);
   });
 });
 

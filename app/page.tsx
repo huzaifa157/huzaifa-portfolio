@@ -85,7 +85,7 @@ export default async function Home() {
 
             <p className="hero-lede rise" style={{ "--i": 2 } as React.CSSProperties}>
               I&apos;m a software engineer at {currentRole.company}, building an
-              AI-driven insurance brokerage platform. In 2 years I&apos;ve
+              AI-driven insurance brokerage platform. In 1+ year I&apos;ve
               shipped production apps in insurance, healthcare, subscription
               commerce, and travel — across web and mobile UIs, backend
               services, databases, and cloud deployment.
@@ -158,7 +158,7 @@ export default async function Home() {
                 <dt>Education</dt>
                 <dd>
                   BS Computer Science
-                  <span>UBIT, University of Karachi</span>
+                  <span>UBIT, University of Karachi · Expected 2027</span>
                 </dd>
               </div>
               <div>
@@ -220,8 +220,8 @@ export default async function Home() {
               Where the work has <em>shipped</em>
             </h2>
             <p className="section-note">
-              Remote for a UAE team today, client delivery before that — owning
-              features from requirements to release in both.
+              Remote for a UAE team today, after an internship shipping
+              full-stack client work.
             </p>
           </div>
 
@@ -403,7 +403,7 @@ export default async function Home() {
                 <div className="record" key={entry.degree}>
                   <b>{entry.degree}</b>
                   <span>{entry.institution}</span>
-                  <span className="record-meta">{entry.location}</span>
+                  <span className="record-meta">{entry.period}</span>
                 </div>
               ))}
 

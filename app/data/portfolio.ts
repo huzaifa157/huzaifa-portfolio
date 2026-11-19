@@ -53,9 +53,9 @@ export const profile = {
   headline: "Full-Stack Software Engineer",
   // First-person version of the résumé summary.
   summary:
-    "I'm a full-stack software engineer with 2 years of experience shipping production apps in insurance, healthcare, subscription commerce, and travel. I work across the stack — web and mobile UIs, backend services, databases, cloud deployment, and AI-powered features — and I pick up new tools fast.",
+    "I'm a software engineer experienced in the MERN stack and Next.js, with working knowledge of C# / ASP.NET Core and PostgreSQL. I ship production apps — including an AI-driven insurance platform with LLM integrations.",
   ownership:
-    "I own work from requirements to release, with a focus on secure, maintainable code.",
+    "I build secure REST APIs with JWT and role-based access control, backed by responsive React interfaces.",
   // One sentence a recruiter can quote back to a hiring manager.
   positioning:
     "The server is the source of truth: typed APIs, authorization enforced per request rather than per screen, and state machines that reject illegal transitions instead of quietly accepting them.",
@@ -72,7 +72,7 @@ export const profile = {
   site: "https://huzaifa-portfolio-blush.vercel.app",
   resume: "/resume.pdf",
   availability: "Open to full-stack engineering roles",
-  experience: "2 years",
+  experience: "1+ year",
   focus: "APIs, data modeling, auth & access control, AI features",
   industries: ["Insurance", "Healthcare", "Subscription commerce", "Travel"],
   currentRole: {
@@ -86,24 +86,19 @@ export const profile = {
     {
       degree: "Bachelor of Science in Computer Science (BSCS)",
       institution: "UBIT, University of Karachi",
-      location: "Karachi, Pakistan",
+      period: "Expected 2027",
     },
   ],
   achievements: [
     {
-      title: "Web Development — Certificate of Completion",
+      title: "Selected for the Prime Minister's Youth Laptop Scheme",
+      issuer: "Government of Pakistan — based on academic performance",
+      year: "2025",
+    },
+    {
+      title: "Web Development — Certificate",
       issuer: "Apna College",
       year: "2025",
-    },
-    {
-      title: "Selected for Prime Minister's Youth Laptop Scheme",
-      issuer: "Government of Pakistan (High Academic Performance)",
-      year: "2025",
-    },
-    {
-      title: "Certificate of Appreciation — Inter-University Tech Competitions",
-      issuer: "University of Karachi",
-      year: "2026",
     },
   ],
 };
@@ -141,7 +136,7 @@ export const principles = [
   },
   {
     title: "The schema evolves through migrations",
-    body: "PostgreSQL changes ship as EF Core migrations, with constraints and transactions guarding the invariants the application depends on.",
+    body: "PostgreSQL changes ship as versioned migrations, with constraints and transactions guarding the invariants the application depends on.",
     proof: "Healthify",
   },
   {
@@ -151,8 +146,8 @@ export const principles = [
   },
   {
     title: "Containerized, and deployed by the pipeline",
-    body: "Applications run in Docker and ship through automated CI/CD, so a release is a repeatable pipeline run rather than a manual step.",
-    proof: "Super Auto · ServeFlow",
+    body: "The ordering platform runs in Docker and every push goes through GitHub Actions, so a release is a repeatable pipeline run rather than a manual step.",
+    proof: "ServeFlow",
   },
 ];
 
@@ -161,24 +156,16 @@ export const experience: ExperienceEntry[] = [
     role: "Software Engineer",
     company: "Super Auto",
     location: "UAE · Remote",
-    context: "AI-driven insurance brokerage platform, company website, and B2B operations software",
-    period: "Feb 2026 — Present",
+    context: "AI-driven insurance brokerage platform, the company website, and B2B projects",
+    period: "Nov 2025 — Present",
     current: true,
     url: "https://superauto.ae",
     urlLabel: "superauto.ae",
-    stack: [
-      "React",
-      "Next.js",
-      "LLM APIs",
-      "Data pipelines",
-      "API integrations",
-      "Docker",
-      "CI/CD",
-    ],
+    stack: ["React", "Next.js", "LLM APIs", "Data pipelines", "API integrations"],
     bullets: [
       {
-        lead: "Developed and launched the company website (superauto.ae)",
-        rest: " with React and Next.js, and refactored the codebase for better performance and maintainability.",
+        lead: "Redesigned and developed superauto.ae using React and Next.js",
+        rest: ", replacing the outdated website with a modern, user-friendly interface and improved usability.",
       },
       {
         lead: "Collaborated with the Team Lead to design, build, and test a full-stack, AI-driven insurance brokerage platform",
@@ -198,19 +185,15 @@ export const experience: ExperienceEntry[] = [
       },
       {
         lead: "Contributed to multiple B2B projects",
-        rest: " with operations teams, turning manual processes into production-ready software.",
-      },
-      {
-        lead: "Containerized applications with Docker",
-        rest: " and supported automated CI/CD deployments.",
+        rest: ", turning manual processes into production-ready software.",
       },
     ],
   },
   {
-    role: "Software Developer",
+    role: "Software Developer Intern",
     company: "BranDive Media Solutions",
-    context: "Full-stack client applications, from requirements through deployment",
-    period: "Jun 2025 — Feb 2026",
+    context: "Internship — full-stack web applications, from requirements through deployment",
+    period: "Jul 2025 — Sep 2025",
     current: false,
     stack: [
       "React",
@@ -224,36 +207,39 @@ export const experience: ExperienceEntry[] = [
     ],
     bullets: [
       {
-        lead: "Owned end-to-end delivery of full-stack web applications",
-        rest: ", from requirements and design through testing and deployment.",
+        lead: "Supported end-to-end delivery of full-stack web applications",
+        rest: ", from requirements through testing and deployment.",
       },
       {
         lead: "Built reusable React and Next.js components and RESTful services",
         rest: " with Node.js, Express.js, and ASP.NET Core, connecting frontend workflows to backend services.",
       },
       {
-        lead: "Implemented authentication, authorization, and RBAC",
-        rest: " with database-driven workflows on MongoDB and PostgreSQL, keeping applications secure and reliable.",
+        lead: "Built authentication and role-based access control (RBAC)",
+        rest: " with database-driven workflows on MongoDB and PostgreSQL.",
       },
       {
         lead: "Developed server-side business logic, third-party API integrations, and validation layers",
         rest: " for production applications.",
       },
       {
-        lead: "Collaborated with developers and stakeholders across the full development lifecycle",
+        lead: "Worked with developers and stakeholders across the development lifecycle",
         rest: ", diagnosing and fixing production issues to improve existing features.",
       },
     ],
   },
 ];
 
-/** Categories and items mirror the résumé's skills section, in the same order. */
+/**
+ * The first five categories mirror the résumé's skills section, item for item
+ * and in the same order. "AI & Data" collects tools named in the Super Auto
+ * bullets rather than the skills list.
+ */
 export const skillsByCategory = {
   languages: ["JavaScript (ES6+)", "TypeScript", "C#", "Python", "SQL", "HTML5", "CSS3"],
   frontend: [
     "React.js",
     "Next.js",
-    "Redux",
     "React Native",
     "Tailwind CSS",
     "NativeWind",
@@ -262,28 +248,13 @@ export const skillsByCategory = {
   backend: [
     "Node.js",
     "Express.js",
-    "ASP.NET Core Web API",
     "RESTful APIs",
     "JWT",
     "RBAC",
+    "ASP.NET Core Web API",
   ],
-  data: [
-    "PostgreSQL",
-    "MongoDB (Atlas)",
-    "Mongoose",
-    "Prisma ORM",
-    "Entity Framework Core",
-  ],
-  cloud: [
-    "Docker",
-    "CI/CD",
-    "AWS (Lambda)",
-    "Git",
-    "GitHub",
-    "Postman",
-    "Jest",
-    "Agile/Scrum",
-  ],
+  data: ["MongoDB (Atlas)", "Mongoose", "PostgreSQL", "Prisma ORM", "Database Design"],
+  cloud: ["Docker", "AWS (Lambda)", "Git", "GitHub", "Postman", "Agile/Scrum"],
   ai: ["LLM APIs", "Data pipelines", "Structured data extraction"],
 };
 
@@ -331,7 +302,7 @@ export const skillProof: Record<string, SkillProof> = {
   SQL: {
     where: "Healthify",
     slug: "healthify",
-    note: "PostgreSQL schemas designed with constraints and transactions, evolved through EF Core migrations.",
+    note: "PostgreSQL schemas designed with migrations, constraints, and transactions.",
   },
   "React.js": {
     where: "Super Auto · DentalFlow",
@@ -340,7 +311,7 @@ export const skillProof: Record<string, SkillProof> = {
   "Next.js": {
     where: "superauto.ae · DentalFlow",
     slug: "dentalflow",
-    note: "Built and launched the Super Auto company website, and the role-scoped dashboards of DentalFlow.",
+    note: "Redesigned superauto.ae to replace the outdated company site, and built the role-scoped dashboards of DentalFlow.",
   },
   "React Native": {
     where: "Expense Tracker",
@@ -407,18 +378,15 @@ export const skillProof: Record<string, SkillProof> = {
     slug: "serveflow",
     note: "Typed queries and transactional state updates over a 15-table PostgreSQL schema.",
   },
-  "Entity Framework Core": {
-    where: "Healthify",
-    slug: "healthify",
-    note: "Schema design, migrations, constraints, and transactions for the subscription platform.",
+  "Database Design": {
+    where: "DentalFlow · Healthify",
+    slug: "dentalflow",
+    note: "14 MongoDB models for the clinic platform, and PostgreSQL schemas with constraints and transactions for Healthify.",
   },
   Docker: {
-    where: "Super Auto",
-    note: "Containerized applications as part of the delivery workflow at Super Auto.",
-  },
-  "CI/CD": {
-    where: "Super Auto",
-    note: "Supported automated CI/CD deployments for containerized applications.",
+    where: "ServeFlow",
+    slug: "serveflow",
+    note: "Containerized the ordering platform, with GitHub Actions running the pipeline on every push.",
   },
   "LLM APIs": {
     where: "Super Auto · AI Studio",
@@ -457,7 +425,7 @@ export const caseStudies: ProjectCaseStudy[] = [
       "A multi-branch clinic platform — 3 branches, 4 user roles, 14 MongoDB models, and 49 REST endpoints covering appointments, medical records, prescriptions, invoices, and payments.",
     thesis:
       "Four roles reading the same records means authorization has to be enforced per request, not per screen.",
-    role: "Software Developer — BranDive Media Solutions",
+    role: "Full-stack developer — architecture, API, and dashboards",
     timeline: "2026",
     featured: true,
     stack: [
@@ -509,48 +477,8 @@ export const caseStudies: ProjectCaseStudy[] = [
     ],
   },
   {
-    slug: "healthify",
-    index: "02",
-    title: "Healthify",
-    kicker: "Meal subscription platform (UAE)",
-    summary:
-      "The backend of a UAE meal-subscription product: ASP.NET Core Web APIs for orders, customers, the meal catalog, and subscription lifecycles, over a PostgreSQL schema managed with EF Core.",
-    thesis:
-      "A subscription is a long-running record, so its rules belong in the schema's constraints and transactions — not in whichever screen happens to edit it.",
-    role: "Full-stack developer — APIs, schema, and React integration",
-    timeline: "2026",
-    featured: true,
-    stack: ["C#", "ASP.NET Core", "EF Core", "PostgreSQL", "React"],
-    metrics: [
-      { value: "4", label: "API domains" },
-      { value: "EF Core", label: "Migrations & transactions" },
-      { value: "RBAC", label: "Role-based authorization" },
-    ],
-    thumbnail: "/projects/healthify-thumb.svg",
-    repoNote: "Client project · private repo",
-    challenge:
-      "A meal-subscription business runs on recurring records: a subscription moves through a lifecycle, and each change touches customers, orders, and the meal catalog together. The backend had to keep those records consistent and restrict every change to the roles allowed to make it.",
-    implementation: [
-      "Developed ASP.NET Core Web APIs for orders, customers, the meal catalog, and subscription lifecycles.",
-      "Designed PostgreSQL schemas with EF Core, including migrations, constraints, and transactions.",
-      "Implemented authentication, role-based authorization, and request validation on the API.",
-      "Integrated the APIs with the React frontend through reusable services.",
-    ],
-    impact: [
-      "Orders, customers, catalog, and subscriptions are served from one validated API surface.",
-      "Schema changes ship as EF Core migrations, so the database evolves in step with the code.",
-      "The React frontend reaches the backend through a reusable service layer rather than one-off calls.",
-    ],
-    architecture: [
-      "ASP.NET Core Web API exposing order, customer, meal catalog, and subscription endpoints",
-      "PostgreSQL schema managed through EF Core migrations, with constraints and transactions",
-      "Authentication, role-based authorization, and request validation at the API boundary",
-      "React frontend consuming the API through reusable services",
-    ],
-  },
-  {
     slug: "wanderlust",
-    index: "03",
+    index: "02",
     title: "Wanderlust",
     kicker: "Full-stack travel marketplace",
     summary:
@@ -593,6 +521,46 @@ export const caseStudies: ProjectCaseStudy[] = [
       "MongoDB Atlas persistence for users, listings, reviews, and bookings",
       "Passport.js sessions with ownership-based authorization middleware",
       "Cloudinary media storage and Mapbox + GeoJSON for map rendering",
+    ],
+  },
+  {
+    slug: "healthify",
+    index: "03",
+    title: "Healthify",
+    kicker: "Meal subscription platform (UAE)",
+    summary:
+      "The backend of a UAE meal-subscription product: ASP.NET Core Web APIs for orders, customers, the meal catalog, and subscription lifecycles, over a PostgreSQL schema with migrations, constraints, and transactions.",
+    thesis:
+      "A subscription is a long-running record, so its rules belong in the schema's constraints and transactions — not in whichever screen happens to edit it.",
+    role: "Full-stack developer — APIs, schema, and React integration",
+    timeline: "2026",
+    featured: true,
+    stack: ["C#", "ASP.NET Core", "PostgreSQL", "React"],
+    metrics: [
+      { value: "4", label: "API domains" },
+      { value: "SQL", label: "Migrations & transactions" },
+      { value: "RBAC", label: "Role-based authorization" },
+    ],
+    thumbnail: "/projects/healthify-thumb.svg",
+    repoNote: "Client project · private repo",
+    challenge:
+      "A meal-subscription business runs on recurring records: a subscription moves through a lifecycle, and each change touches customers, orders, and the meal catalog together. The backend had to keep those records consistent and restrict every change to the roles allowed to make it.",
+    implementation: [
+      "Developed ASP.NET Core Web APIs for orders, customers, the meal catalog, and subscription lifecycles.",
+      "Designed PostgreSQL schemas, including migrations, constraints, and transactions.",
+      "Added authentication, role-based authorization, and request validation on the API.",
+      "Connected the APIs to the React frontend through reusable services.",
+    ],
+    impact: [
+      "Orders, customers, catalog, and subscriptions are served from one validated API surface.",
+      "Schema changes ship as versioned migrations, so the database evolves in step with the code.",
+      "The React frontend reaches the backend through a reusable service layer rather than one-off calls.",
+    ],
+    architecture: [
+      "ASP.NET Core Web API exposing order, customer, meal catalog, and subscription endpoints",
+      "PostgreSQL schema evolved through migrations, with constraints and transactions",
+      "Authentication, role-based authorization, and request validation at the API boundary",
+      "React frontend consuming the API through reusable services",
     ],
   },
   {

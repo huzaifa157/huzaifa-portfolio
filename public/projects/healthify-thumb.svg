@@ -72,5 +72,5 @@
   <circle cx="936" cy="378" r="4" fill="#45453c"/>
   <rect x="952" y="373" width="74" height="10" rx="5" fill="#45453c" fill-opacity="0.7"/>
 
-  <text x="90" y="580" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="21" letter-spacing="0.4" fill="#807d72" text-anchor="start">ASP.NET Core · EF Core · PostgreSQL</text>
+  <text x="90" y="580" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, monospace" font-size="21" letter-spacing="0.4" fill="#807d72" text-anchor="start">ASP.NET Core · PostgreSQL · React</text>
 </svg>

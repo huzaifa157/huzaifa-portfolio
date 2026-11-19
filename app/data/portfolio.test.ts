@@ -56,7 +56,7 @@ describe("profile", () => {
     for (const entry of profile.education) {
       expect(entry.degree).toBeTruthy();
       expect(entry.institution).toBeTruthy();
-      expect(entry.location).toBeTruthy();
+      expect(entry.period).toBeTruthy();
     }
 
     for (const achievement of profile.achievements) {

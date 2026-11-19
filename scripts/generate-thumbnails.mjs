@@ -355,7 +355,7 @@ const projects = [
     file: "healthify-thumb.svg",
     title: "Healthify",
     heading: "SUBSCRIPTION SCHEMA",
-    caption: "ASP.NET Core · EF Core · PostgreSQL",
+    caption: "ASP.NET Core · PostgreSQL · React",
     motif: schema,
   },
   {
